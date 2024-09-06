@@ -1,0 +1,18 @@
+# 설정 파일 및 디렉토리
+.github/
+.vscode/
+dist/
+build/
+.pnp.cjs
+.pnp.loader.mjs
+
+# 패키지 매니저 관련 파일 및 폴더
+yarn.lock
+yarn/
+
+# 이미지 파일
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
