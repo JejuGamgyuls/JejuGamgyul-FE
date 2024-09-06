@@ -1,0 +1,33 @@
+name: "🐞 Bug"
+description: "버그 이슈를 생성하며, 생성된 이슈는 Jira와 연동됩니다."
+labels: ["🐞 Bug"]
+title: "Bug: "
+body:
+  - type: input
+    id: description
+    attributes:
+      label: "버그 내용(Description)"
+      description: "버그에 대해서 간략히 설명해주세요"
+    validations:
+      required: false
+
+  - type: textarea
+    id: details
+    attributes:
+      label: "예상 동작"
+      description: "예상했던 동작을 간략히 작성하세요"
+      value: |
+        - detail
+        
+    validations:
+      required: false
+
+  - type: textarea
+    id: references
+    attributes:
+      label: "추가정보"
+      description: " 기타 관련 정보나 관련 이슈, PR 링크 등을 작성하세요."
+      value: |
+        - Ref
+    validations:
+      required: false

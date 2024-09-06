@@ -1,0 +1,44 @@
+name: "🔥 Feature"
+description: "이슈를 생성하며, 생성된 이슈는 Jira와 연동됩니다."
+labels: ["✨ Feat"]
+title: "Feat: "
+body:
+  - type: input
+    id: description
+    attributes:
+      label: "기능 설명"
+      description: "구현할 기능에 대해 알려주세요"
+    validations:
+      required: true
+
+  - type: textarea
+    id: details
+    attributes:
+      label: "상세 내용(Details) 및 디자인"
+      description: "이슈에 대해서 자세히 설명해주세요"
+      value: |
+        - detail
+
+    validations:
+      required: false
+
+  - type: textarea
+    id: tasks
+    attributes:
+      label: "체크리스트(Tasks)"
+      description: "해당 이슈에 대해 필요한 작업목록을 작성해주세요"
+      value: |
+        - [ ] 
+        - [ ] 
+    validations:
+      required: false
+
+  - type: textarea
+    id: references
+    attributes:
+      label: "기타 참고자료(References)"
+      description: "해당 이슈과 관련된 레퍼런스를 참조해주세요"
+      value: |
+        - Ref
+    validations:
+      required: false
