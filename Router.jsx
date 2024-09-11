@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import { ROUTE } from './src/constants';
+import { ROUTE } from './src/constants/route';
 import Mainpage from './src/pages/mainpage';
 export const Router = () => {
   return (
