@@ -5,7 +5,6 @@ import { defineConfig } from 'vite';
 import svgr from 'vite-plugin-svgr';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -21,7 +20,6 @@ export default defineConfig({
   server: {
     port: 3000,
   },
-
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
