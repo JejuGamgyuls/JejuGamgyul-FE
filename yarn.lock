@@ -426,15 +426,7 @@
 
 "@remix-run/router@1.19.2":
   version "1.19.2"
-<<<<<<< HEAD
   resolved "https://registry.npmjs.org/@remix-run/router/-/router-1.19.2.tgz#0c896535473291cb41f152c180bedd5680a3b273"
-=======
-<<<<<<< Updated upstream
-  resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.19.2.tgz#0c896535473291cb41f152c180bedd5680a3b273"
-=======
-  resolved "https://registry.npmjs.org/@remix-run/router/-/router-1.19.2.tgz#0c896535473291cb41f152c180bedd5680a3b273"
->>>>>>> Stashed changes
->>>>>>> cdba127 (Feat: Navigation UI 구현 및 아이콘 추가)
   integrity sha512-baiMx18+IMuD1yyvOGaHM9QrVUPGGG0jC+z+IPHnRJWUAUvaKuWKyE8gjDj2rzv3sz9zOGoRSPgeBVHRhZnBlA==
 
 "@rollup/pluginutils@^5.0.5":
@@ -445,14 +437,6 @@
     "@types/estree" "^1.0.0"
     estree-walker "^2.0.2"
     picomatch "^2.3.1"
-<<<<<<< HEAD
-=======
-
-"@rollup/rollup-android-arm-eabi@4.21.2":
-  version "4.21.2"
-  resolved "https://registry.npmjs.org/@rollup/rollup-android-arm-eabi/-/rollup-android-arm-eabi-4.21.2.tgz#0412834dc423d1ff7be4cb1fc13a86a0cd262c11"
-  integrity sha512-fSuPrt0ZO8uXeS+xP3b+yYTCBUd05MoSp2N/MFOgjhhUhMmchXlpTQrTpI8T+YAwAQuK7MafsCOxW7VrPMrJcg==
->>>>>>> a3ab2df (Chore: svgr 설정)
 
 "@rollup/rollup-android-arm-eabi@4.21.3":
   version "4.21.3"
@@ -2615,15 +2599,7 @@ react-refresh@^0.14.2:
 
 react-router-dom@^6.26.2:
   version "6.26.2"
-<<<<<<< HEAD
   resolved "https://registry.npmjs.org/react-router-dom/-/react-router-dom-6.26.2.tgz#a6e3b0cbd6bfd508e42b9342099d015a0ac59680"
-=======
-<<<<<<< Updated upstream
-  resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.26.2.tgz#a6e3b0cbd6bfd508e42b9342099d015a0ac59680"
-=======
-  resolved "https://registry.npmjs.org/react-router-dom/-/react-router-dom-6.26.2.tgz#a6e3b0cbd6bfd508e42b9342099d015a0ac59680"
->>>>>>> Stashed changes
->>>>>>> cdba127 (Feat: Navigation UI 구현 및 아이콘 추가)
   integrity sha512-z7YkaEW0Dy35T3/QKPYB1LjMK2R1fxnHO8kWpUMTBdfVzZrWOiY9a7CtN8HqdWtDUWd5FY6Dl8HFsqVwH4uOtQ==
   dependencies:
     "@remix-run/router" "1.19.2"
@@ -2631,15 +2607,7 @@ react-router-dom@^6.26.2:
 
 react-router@6.26.2:
   version "6.26.2"
-<<<<<<< HEAD
   resolved "https://registry.npmjs.org/react-router/-/react-router-6.26.2.tgz#2f0a68999168954431cdc29dd36cec3b6fa44a7e"
-=======
-<<<<<<< Updated upstream
-  resolved "https://registry.yarnpkg.com/react-router/-/react-router-6.26.2.tgz#2f0a68999168954431cdc29dd36cec3b6fa44a7e"
-=======
-  resolved "https://registry.npmjs.org/react-router/-/react-router-6.26.2.tgz#2f0a68999168954431cdc29dd36cec3b6fa44a7e"
->>>>>>> Stashed changes
->>>>>>> cdba127 (Feat: Navigation UI 구현 및 아이콘 추가)
   integrity sha512-tvN1iuT03kHgOFnLPfLJ8V95eijteveqdOSk+srqfePtQvqCExB8eHOYnlilbOcyJyKnYkr1vJvf7YqotAJu1A==
   dependencies:
     "@remix-run/router" "1.19.2"
