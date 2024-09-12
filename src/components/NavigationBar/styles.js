@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+<<<<<<< HEAD
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -35,4 +36,13 @@ export const NavIcon = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+=======
+export const NavigationBar = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 63px;
+  height: 100vh;
+  background-color: #a1a1a1;
+>>>>>>> cdba127 (Feat: Navigation UI 구현 및 아이콘 추가)
 `;
