@@ -14,7 +14,7 @@ export const Wrapper = styled.div`
   padding-top: 16px;
 `;
 
-export const NavIcons = styled.div`
+export const NavIconList = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;

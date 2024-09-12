@@ -11,7 +11,8 @@
       "@pages/*": ["pages/*"],
       "@stores/*": ["stores/*"],
       "@utils/*": ["utils/*"],
-      "@types/*": ["types/*"]
+      "@types/*": ["types/*"],
+      "@atoms/*": ["atoms/*"]
     }
   }
 }
