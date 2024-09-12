@@ -437,6 +437,14 @@
     "@types/estree" "^1.0.0"
     estree-walker "^2.0.2"
     picomatch "^2.3.1"
+<<<<<<< HEAD
+=======
+
+"@rollup/rollup-android-arm-eabi@4.21.2":
+  version "4.21.2"
+  resolved "https://registry.npmjs.org/@rollup/rollup-android-arm-eabi/-/rollup-android-arm-eabi-4.21.2.tgz#0412834dc423d1ff7be4cb1fc13a86a0cd262c11"
+  integrity sha512-fSuPrt0ZO8uXeS+xP3b+yYTCBUd05MoSp2N/MFOgjhhUhMmchXlpTQrTpI8T+YAwAQuK7MafsCOxW7VrPMrJcg==
+>>>>>>> a3ab2df (Chore: svgr 설정)
 
 "@rollup/rollup-android-arm-eabi@4.21.3":
   version "4.21.3"
