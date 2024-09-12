@@ -8,10 +8,8 @@ export const Wrapper = styled.div`
   height: 100vh;
   border-right: 1px solid rgba(6, 6, 6, 0.5);
   background-color: white;
-  padding: 0;
-  position: fixed;
-  z-index: 1;
   padding-top: 16px;
+  z-index: 2;
 `;
 
 export const NavIconList = styled.div`
