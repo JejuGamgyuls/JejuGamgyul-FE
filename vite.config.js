@@ -8,16 +8,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-    svgr({
-      exportAsDefault: true,
-      svgrOptions: {
-        icon: true,
-      },
-      include: '**/*.svg?react',
-    }),
-  ],
+  plugins: [react(), svgr()],
   server: {
     port: 3000,
   },
@@ -35,5 +26,5 @@ export default defineConfig({
       '@utils': path.resolve(__dirname, './src/utils'),
       '@types': path.resolve(__dirname, './src/types'),
     },
-  },
+  }
 });
