@@ -4,10 +4,12 @@ import { BrowserRouter } from 'react-router-dom';
 
 import './index.css';
 import App from './App.jsx';
+import { GlobalStyle } from '../globalStyle';
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <StrictMode>
+      <GlobalStyle />
       <App />
     </StrictMode>
   </BrowserRouter>,
