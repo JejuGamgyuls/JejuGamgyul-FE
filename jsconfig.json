@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["vite-plugin-svgr/client"],
     "baseUrl": "./src",
     "paths": {
       "@apis/*": ["apis/*"],
@@ -10,7 +11,8 @@
       "@pages/*": ["pages/*"],
       "@stores/*": ["stores/*"],
       "@utils/*": ["utils/*"],
-      "@types/*": ["types/*"]
+      "@types/*": ["types/*"],
+      "@atoms/*": ["atoms/*"]
     }
   }
 }

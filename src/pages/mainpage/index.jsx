@@ -1,3 +1,4 @@
+import NavigationBar from '@components/NavigationBar/NavigationBar';
 import { NavermapsProvider } from 'react-naver-maps';
 
 import NaverMapContainer from './NaverMapContainer';
@@ -7,6 +8,7 @@ function Mainpage() {
 
   return (
     <>
+      <NavigationBar />
       <NavermapsProvider ncpClientId={naverMapClientId}>
         <NaverMapContainer />
       </NavermapsProvider>
