@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "svgr": "npx @svgr/cli -d src/assets/svg --ignore-existing --no-dimensions public/svg"
   },
   "dependencies": {
     "@svgr/cli": "^8.1.0",
@@ -27,7 +28,8 @@
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",
     "globals": "^15.9.0",
-    "vite": "^5.4.1"
+    "vite": "^5.4.1",
+    "vite-plugin-svgr": "^4.2.0"
   },
   "packageManager": "yarn@1.22.19"
 }
