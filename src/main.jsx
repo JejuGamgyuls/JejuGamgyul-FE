@@ -9,7 +9,6 @@ import App from './App.jsx';
 import { GlobalStyle } from '../globalStyle';
 
 createRoot(document.getElementById('root')).render(
-<<<<<<< HEAD
   <BrowserRouter>
     <StrictMode>
       <RecoilRoot>
@@ -18,11 +17,4 @@ createRoot(document.getElementById('root')).render(
       </RecoilRoot>
     </StrictMode>
   </BrowserRouter>,
-=======
-  <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </StrictMode>,
->>>>>>> cdba127 (Feat: Navigation UI 구현 및 아이콘 추가)
 );
