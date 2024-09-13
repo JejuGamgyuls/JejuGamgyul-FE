@@ -15,7 +15,6 @@ export const Wrapper = styled.div`
 export const BusStopItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 18px;
   overflow-y: scroll;
   width: 100%;
   height: calc(100vh - ${STYLE.BUS_STOP_ITEM_HEIGHT + STYLE.FIND_BUS_INPUT_HEIGHT}px);

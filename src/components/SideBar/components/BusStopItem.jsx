@@ -2,17 +2,17 @@ import BlueBusIcon from '@assets/svg/BlueBusIcon.svg?react';
 import FavoriteIcon from '@assets/svg/FavoriteIcon.svg?react';
 import { STYLE } from '@constants/const';
 import styled from 'styled-components';
-function BusStopItem() {
+function BusStopItem({ busStopName, busStopNumber, busDirection }) {
   return (
     <Wrapper>
       <BusItemWrapper>
         <NameWrapper>
           <BlueBusIcon width={30} height={30} />
-          <BusStopName>선릉역</BusStopName>
+          <BusStopName>{busStopName}</BusStopName>
         </NameWrapper>
         <BusStopInfo>
-          <BusStopNumber>23259</BusStopNumber>
-          <BusDirection> 포스코빌딩 방면</BusDirection>
+          <BusStopNumber>{busStopNumber}</BusStopNumber>
+          <BusDirection> {busDirection}</BusDirection>
         </BusStopInfo>
       </BusItemWrapper>
       <IconWrapper>
