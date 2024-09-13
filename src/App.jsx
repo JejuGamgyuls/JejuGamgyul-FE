@@ -1,3 +1,4 @@
+// import UserIcon from '@assets/svg/UserIcon.svg';
 import { useEffect } from 'react';
 
 import { Router } from '../Router';

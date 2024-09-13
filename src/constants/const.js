@@ -1,0 +1,6 @@
+export const CATEGORY = {
+  HOME: 'HOME',
+  FAVORITE: 'FAVORITE',
+  TIMETABLE: 'TIMETABLE',
+  MYINFO: 'MYINFO',
+};
