@@ -11,10 +11,8 @@ import { GlobalStyle } from '../globalStyle';
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <StrictMode>
-      <RecoilRoot>
-        <GlobalStyle />
-        <App />
-      </RecoilRoot>
+      <GlobalStyle />
+      <App />
     </StrictMode>
   </BrowserRouter>,
 );
