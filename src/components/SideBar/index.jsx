@@ -21,7 +21,7 @@ function SideBar() {
   return (
     <S.Wrapper>
       <FindBusInput />
-      {SIDE_BAR_MAP[category]()}
+      <S.BusStopItemWrapper>{SIDE_BAR_MAP[category]()}</S.BusStopItemWrapper>
     </S.Wrapper>
   );
 }

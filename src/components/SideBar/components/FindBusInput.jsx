@@ -8,17 +8,32 @@ import styled from 'styled-components';
 function FindBusInput() {
   const inputRef = useRef();
 
-  const [setSearchBusNumber] = useRecoilState(searchBusNumberState);
-  const [setCategory] = useRecoilState(navigationBarState);
+  const [, setSearchBusNumber] = useRecoilState(searchBusNumberState);
+  const [, setCategory] = useRecoilState(navigationBarState);
 
   const handleSearchInfo = () => {
     setSearchBusNumber(parseInt(inputRef.current.value));
     setCategory(CATEGORY.BUSDETAILINFO);
   };
 
+  const handleKeyDown = (e) => {
+    if (e.nativeEvent.isComposing) {
+      return;
+    }
+    if (e.key === 'Enter') {
+      handleSearchInfo();
+    }
+  };
+
   return (
     <Wrapper>
-      <StyledInput autoFocus ref={inputRef} placeholder="버스 번호를 검색해보세요" />
+      <StyledInput
+        type="number"
+        onKeyDown={handleKeyDown}
+        autoFocus
+        ref={inputRef}
+        placeholder="버스 번호를 검색해보세요"
+      />
       <IconWrapper onClick={handleSearchInfo}>
         <FindIcon width={25} height={25} />
       </IconWrapper>
@@ -47,6 +62,7 @@ const StyledInput = styled.input`
   border: none;
   background: transparent;
   font-size: 16px;
+
   &:focus {
     outline: none;
   }
