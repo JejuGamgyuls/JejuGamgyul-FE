@@ -8,7 +8,7 @@ function BusDetail() {
     setRotate(true);
     setTimeout(() => {
       setRotate(false);
-    }, 700);
+    }, 500);
   };
   return (
     <Wrapper>
