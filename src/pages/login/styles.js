@@ -1,13 +1,17 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
   width: 750px;
-  height: 100vh;
+  transform: translate(-50%, -50%);
   margin: 0 auto;
 `;
 export const Header = styled.div`
   width: 100%;
-  height: 180px;
+  height: 100px;
+  background: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,33 +31,16 @@ export const Body = styled.div`
   align-items: center;
 `;
 export const InputsWrapper = styled.div`
-  height: 600px;
-  background: #fff;
+  padding-top: 44px;
+  height: 132px;
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 24px;
 `;
-export const InputContainer = styled.div`
-  width: 614px;
+export const ButtonsWrapper = styled.div`
+  padding-top: 98px;
+  height: 146px;
   display: flex;
-  margin: 0 auto;
-  gap: 15px;
-`;
-export const InputTitle = styled.div`
-  flex: 1;
-  min-width: 100px;
-  height: 66px;
-  display: flex;
-  align-items: center;
-  color: #000;
-  font-family: Inter;
-  font-size: 19px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  white-space: nowrap;
-`;
-export const EmptyButtonSpace = styled.div`
-  width: 100px;
-  height: 66px;
+  flex-direction: column;
+  gap: 14px;
 `;
