@@ -1,18 +1,18 @@
 import FindIcon from '@assets/svg/SearchIcon.svg?react';
 import { navigationBarState } from '@atoms/navigationBarState';
-import { searchBusNumberState } from '@atoms/searchBusNumberState';
 import { CATEGORY } from '@constants/const';
+import { ROUTE } from '@constants/route';
 import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 function FindBusInput() {
   const inputRef = useRef();
-
-  const [, setSearchBusNumber] = useRecoilState(searchBusNumberState);
+  const navigate = useNavigate();
   const [, setCategory] = useRecoilState(navigationBarState);
 
   const handleSearchInfo = () => {
-    setSearchBusNumber(parseInt(inputRef.current.value));
+    navigate(ROUTE.BUSFIND.replace(':busNumber', inputRef.current.value));
     setCategory(CATEGORY.BUSDETAILINFO);
   };
 
