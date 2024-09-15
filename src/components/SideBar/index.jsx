@@ -1,7 +1,7 @@
 import { navigationBarState } from '@atoms/navigationBarState';
-import BusDetailInfo from '@components/BusDetailInfo';
-import BusStopsAround from '@components/BusStopsAround';
 import { CATEGORY } from '@constants/const';
+import BusDetailInfo from '@pages/busFindpage/components';
+import BusStopsAround from '@pages/mainpage/components';
 import { useRecoilState } from 'recoil';
 
 import FindBusInput from './components/FindBusInput';
@@ -17,7 +17,6 @@ const SIDE_BAR_MAP = {
 
 function SideBar() {
   const [category] = useRecoilState(navigationBarState);
-
   return (
     <S.Wrapper>
       <FindBusInput />
