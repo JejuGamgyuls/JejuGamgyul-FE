@@ -23,13 +23,38 @@ export const Title = styled.div`
 `;
 export const Body = styled.div`
   width: 100%;
-  height: calc(100vh - 180px);
-  background: pink;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 export const InputsWrapper = styled.div`
   height: 600px;
   background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
 `;
 export const InputContainer = styled.div`
   width: 614px;
+  display: flex;
+  margin: 0 auto;
+  gap: 15px;
+`;
+export const InputTitle = styled.div`
+  flex: 1;
+  min-width: 100px;
+  height: 66px;
+  display: flex;
+  align-items: center;
+  color: #000;
+  font-family: Inter;
+  font-size: 19px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  white-space: nowrap;
+`;
+export const EmptyButtonSpace = styled.div`
+  width: 100px;
+  height: 66px;
 `;

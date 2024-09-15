@@ -5,7 +5,9 @@ function Input({ placeholder, onChange }) {
 }
 
 const TextInput = styled.input`
-  width: 360px;
+  flex: 1;
+  box-sizing: border-box;
+  min-width: 360px;
   height: 66px;
   border-radius: 5px;
   border: 1px solid #5e5e5e;
@@ -15,7 +17,7 @@ const TextInput = styled.input`
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-  padding-left: 27px;
+  padding: 0 27px;
   color: #595959;
   &::placeholder {
     color: #767373;

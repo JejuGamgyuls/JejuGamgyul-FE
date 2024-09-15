@@ -4,7 +4,7 @@ function DupCheckButton() {
   return <StyledButton>중복확인</StyledButton>;
 }
 const StyledButton = styled.button`
-  width: 100px;
+  min-width: 100px;
   height: 66px;
   border-radius: 5px;
   border: 1.5px solid #fd825b;

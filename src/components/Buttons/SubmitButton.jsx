@@ -15,5 +15,6 @@ const StyledButton = styled.button`
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+  margin-left: 15px;
 `;
 export default SubmitButton;
