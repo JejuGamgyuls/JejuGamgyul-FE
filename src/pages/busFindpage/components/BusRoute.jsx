@@ -2,46 +2,62 @@ import DownArrowLineIcon from '@assets/svg/DownArrowLineIcon.svg?react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
+import theme from '../../../../theme';
 import { busDirectionState } from '../atoms/busDirectionState';
+// nextStatus 0: 원활, 1: 보통, 2: 혼잡, 3: 매우혼잡
+const mock = [
+  { name: '흥안운수사계4동종점', id: 11491, nextStatus: '0' },
+  { name: '하계역', id: 11491, nextStatus: '0' },
+  { name: '하계역', id: 11491, nextStatus: '1' },
+  { name: '하계역', id: 11491, nextStatus: '2' },
+  { name: '하계역', id: 11491, nextStatus: '3' },
+  { name: '하계역', id: 11491, nextStatus: '2' },
+  { name: '하계역', id: 11491, nextStatus: '1' },
+  { name: '하계역', id: 11491, nextStatus: '1' },
+  { name: '하계역', id: 11491, nextStatus: '0' },
+  { name: '하계역', id: 11491, nextStatus: '0' },
+  { name: '하계역', id: 11491, nextStatus: '1' },
+  { name: '하계역', id: 11491, nextStatus: '2' },
+  { name: '하계역', id: 11491, nextStatus: '2' },
+  { name: '하계역', id: 11491, nextStatus: '2' },
+  { name: '하계역', id: 11491, nextStatus: '3' },
+  { name: '하계역', id: 11491, nextStatus: '3' },
+  { name: '하계역', id: 11491, nextStatus: '2' },
+  { name: '하계역', id: 11491, nextStatus: '1' },
+  { name: '하계역', id: 11491, nextStatus: '0' },
+  { name: '하계역', id: 11491, nextStatus: '0' },
+  { name: '하계역', id: 11491, nextStatus: '2' },
+  { name: '하계역', id: 11491, nextStatus: '0' },
+  { name: '하계역', id: 11491, nextStatus: '1' },
+  { name: '노원우체국', id: 11491, nextStatus: null },
+];
+
+function nextStatusColor(status) {
+  switch (status) {
+    case '0':
+      return theme.busRouteStatus.gray;
+    case '1':
+      return theme.busRouteStatus.orange;
+    case '2':
+      return theme.busRouteStatus.red;
+    case '3':
+      return theme.busRouteStatus.gray;
+    default:
+      return 'black';
+  }
+}
 
 function BusRoute() {
-  const mock = [
-    { name: '흥안운수사계4동종점', id: 11491 },
-    { name: '하계역', id: 11491 },
-    { name: '하계역', id: 11491 },
-    { name: '하계역', id: 11491 },
-    { name: '하계역', id: 11491 },
-    { name: '하계역', id: 11491 },
-    { name: '하계역', id: 11491 },
-    { name: '하계역', id: 11491 },
-    { name: '하계역', id: 11491 },
-    { name: '하계역', id: 11491 },
-    { name: '하계역', id: 11491 },
-    { name: '하계역', id: 11491 },
-    { name: '하계역', id: 11491 },
-    { name: '하계역', id: 11491 },
-    { name: '하계역', id: 11491 },
-    { name: '하계역', id: 11491 },
-    { name: '하계역', id: 11491 },
-    { name: '하계역', id: 11491 },
-    { name: '하계역', id: 11491 },
-    { name: '하계역', id: 11491 },
-    { name: '하계역', id: 11491 },
-    { name: '하계역', id: 11491 },
-    { name: '하계역', id: 11491 },
-    { name: '노원우체국', id: 11491 },
-  ];
   const [direction] = useRecoilState(busDirectionState);
   return (
     <Wrapper>
       {mock.map((item, index) => (
         <BusItemWrapper key={index} style={{ position: 'relative', width: '100%', height: '80px' }}>
           <StatusWrapper>
-            <PrevStatus index={index} />
             <IconWrapper>
               <DownArrowLineIcon />
             </IconWrapper>
-            <NextStatus index={index} mockLen={mock.length} />
+            <NextStatus status={item.nextStatus} index={index} mockLen={mock.length} />
           </StatusWrapper>
           <BusStopItem>
             <BusStopText index={index} mockLen={mock.length}>
@@ -83,19 +99,17 @@ const StatusWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 80px;
+  height: 100%;
   position: absolute;
   left: 30px;
+  top: 25%;
 `;
-const PrevStatus = styled.div`
-  width: 3px;
-  height: 100%;
-  background-color: ${(props) => (props.index === 0 ? 'white' : 'red')};
-`;
+
 const NextStatus = styled.div`
   width: 3px;
-  height: 100%;
-  background-color: ${(props) => (props.index === props.mockLen - 1 ? 'white' : 'red')};
+  height: 150%;
+  background-color: ${(props) =>
+    props.index === props.mockLen - 1 ? 'white' : nextStatusColor(props.status)};
 `;
 const BusStopText = styled.div`
   background-color: white;
