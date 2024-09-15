@@ -37,8 +37,10 @@ function SignUpPage() {
             <Input placeholder="Gamkyul@example.com" />
             <DupCheckButton />
           </S.InputContainer>
+          <S.ButtonWrapper>
+            <SubmitButton text="가입하기" />
+          </S.ButtonWrapper>
         </S.InputsWrapper>
-        <SubmitButton text="가입하기" />
       </S.Body>
     </S.Wrapper>
   );

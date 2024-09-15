@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   width: 750px;
-  height: 100vh;
   margin: 0 auto;
 `;
 export const Header = styled.div`
@@ -31,7 +30,7 @@ export const InputsWrapper = styled.div`
   background: #fff;
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 40px;
 `;
 export const InputContainer = styled.div`
   width: 614px;
@@ -51,9 +50,14 @@ export const InputTitle = styled.div`
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-  white-space: nowrap;
 `;
 export const EmptyButtonSpace = styled.div`
   width: 100px;
   height: 66px;
+`;
+export const ButtonWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px 0 0 15px;
 `;
