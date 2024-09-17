@@ -29,8 +29,7 @@ const Wrapper = styled.div`
   font-size: 21px;
   font-style: normal;
   font-weight: 700;
-  line-height: normal;
-
+  
   svg {
     width: 20px;
     height: 20px;

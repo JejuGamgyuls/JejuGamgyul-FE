@@ -3,6 +3,7 @@ export const CATEGORY = {
   FAVORITE: 'FAVORITE',
   TIMETABLE: 'TIMETABLE',
   MYINFO: 'MYINFO',
+  BUSDETAILINFO: 'BUSDETAILINFO',
 };
 
 export const geolocationOptions = {
