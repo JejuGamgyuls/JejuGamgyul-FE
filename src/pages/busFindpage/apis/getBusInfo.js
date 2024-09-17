@@ -6,7 +6,7 @@ export const getBusRouteInfo = async () => {
   const key = import.meta.env.VITE_ENCODED;
   try {
     const res = await instance
-      .get(`http:///localhost:8080/bus-route?ServiceKey=${key}&busRouteId=100100181`)
+      .get(`http://localhost:8080/bus-route?ServiceKey=${key}&busRouteId=100100181`)
       .then((res) => {
         parseStringPromise(res.data).then((result) => {
           console.log(result);
