@@ -10,6 +10,7 @@ export const Wrapper = styled.div`
   background-color: white;
   padding-top: 16px;
   z-index: 2;
+  box-sizing: border-box;
 `;
 
 export const NavIconList = styled.div`

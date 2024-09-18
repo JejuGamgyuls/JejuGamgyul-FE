@@ -22,9 +22,10 @@ const theme = {
     yellowGreen: '#87C700',
   },
   busRouteStatus: {
-    red: '#FB5852',
-    orange: '#FFCE00',
+    gray: '#B3B3B3',
     green: '#3CC344',
+    orange: '#FFCE00',
+    red: '#FB5852',
   },
   system: {
     error: '#D32F2F',
