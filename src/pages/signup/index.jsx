@@ -73,13 +73,18 @@ function SignUpPage() {
           </S.MessageWrapper>
           <S.InputContainer>
             <S.InputTitle>비밀번호</S.InputTitle>
-            <Input placeholder="비밀번호를 입력해주세요" onChange={(e) => setPwd(e.target.value)} />
+            <Input
+              type="password"
+              placeholder="비밀번호를 입력해주세요"
+              onChange={(e) => setPwd(e.target.value)}
+            />
             <S.EmptyButtonSpace />
           </S.InputContainer>
           <S.MessageWrapper />
           <S.InputContainer>
             <S.InputTitle>비밀번호 확인</S.InputTitle>
             <Input
+              type="password"
               placeholder="비밀번호를 한 번 더 입력해주세요"
               onChange={(e) => setConfirmPwd(e.target.value)}
             />

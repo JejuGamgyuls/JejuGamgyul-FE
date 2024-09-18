@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-function Input({ placeholder, onChange }) {
-  return <TextInput placeholder={placeholder} onChange={onChange} />;
+function Input({ type = 'text', placeholder, onChange }) {
+  return <TextInput type={type} placeholder={placeholder} onChange={onChange} />;
 }
 
 const TextInput = styled.input`
