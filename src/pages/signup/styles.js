@@ -30,7 +30,6 @@ export const InputsWrapper = styled.div`
   background: #fff;
   display: flex;
   flex-direction: column;
-  gap: 40px;
 `;
 export const InputContainer = styled.div`
   width: 614px;
@@ -60,4 +59,17 @@ export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   padding: 20px 0 0 15px;
+`;
+export const MessageWrapper = styled.div`
+  width: 100%;
+  height: 48px;
+  display: flex;
+`;
+export const Message = styled.div`
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  padding: 1px 0 0 170px;
 `;
