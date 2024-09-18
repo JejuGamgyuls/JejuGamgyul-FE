@@ -12,7 +12,7 @@ function LoginPage() {
       <S.Body>
         <S.InputsWrapper>
           <Input placeholder="아이디를 입력해주세요" />
-          <Input placeholder="비밀번호를 입력해주세요" />
+          <Input type="password" placeholder="비밀번호를 입력해주세요" />
         </S.InputsWrapper>
         <S.ButtonsWrapper>
           <SubmitButton text="로그인" />
