@@ -75,4 +75,5 @@ const IconWrapper = styled.div`
   align-self: center;
   display: flex;
   justify-content: center;
+  align-items: center;
 `;

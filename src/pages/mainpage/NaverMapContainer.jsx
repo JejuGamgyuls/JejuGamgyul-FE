@@ -4,7 +4,14 @@ import Map from './Map';
 
 function NaverMapContainer() {
   return (
-    <MapDiv style={{ width: '100vw', height: '100vh' }}>
+    <MapDiv
+      style={{
+        width: 'calc(100vw - 450px)',
+        height: '100vh',
+        position: 'absolute',
+        right: 0,
+      }}
+    >
       <Map />
     </MapDiv>
   );
