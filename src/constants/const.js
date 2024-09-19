@@ -4,6 +4,7 @@ export const CATEGORY = {
   TIMETABLE: 'TIMETABLE',
   MYINFO: 'MYINFO',
   BUSDETAILINFO: 'BUSDETAILINFO',
+  BUSSTOPINFO: 'BUSSTOPINFO',
 };
 
 export const geolocationOptions = {

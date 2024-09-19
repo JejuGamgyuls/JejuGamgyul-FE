@@ -1,6 +1,7 @@
 import { navigationBarState } from '@atoms/navigationBarState';
 import { CATEGORY } from '@constants/const';
 import BusDetailInfo from '@pages/busFindpage/components';
+import BusStopInfo from '@pages/busStopFindPage/components';
 import BusStopsAround from '@pages/mainpage/components';
 import { useRecoilState } from 'recoil';
 
@@ -13,6 +14,7 @@ const SIDE_BAR_MAP = {
   [CATEGORY.TIMETABLE]: () => <div>시간표</div>,
   [CATEGORY.MYINFO]: () => <div>내 정보</div>,
   [CATEGORY.BUSDETAILINFO]: BusDetailInfo,
+  [CATEGORY.BUSSTOPINFO]: BusStopInfo,
 };
 
 function SideBar() {
