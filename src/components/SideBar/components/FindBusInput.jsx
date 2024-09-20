@@ -12,8 +12,16 @@ function FindBusInput() {
   const [, setCategory] = useRecoilState(navigationBarState);
 
   const handleSearchInfo = () => {
-    navigate(ROUTE.BUSFIND.replace(':busNumber', inputRef.current.value));
-    setCategory(CATEGORY.BUSDETAILINFO);
+    const inputValue = inputRef.current.value;
+    if (!isNaN(Number(inputValue))) {
+      const busRoute = ROUTE.BUSFIND.replace(':busNumber', inputValue); // 버스 검색
+      navigate(busRoute);
+      setCategory(CATEGORY.BUSDETAILINFO);
+    } else {
+      const stopRoute = ROUTE.BUSSTOP.replace(':busStop', inputValue); // 정류장 검색
+      navigate(stopRoute);
+      setCategory(CATEGORY.BUSSTOPINFO);
+    }
   };
 
   const handleKeyDown = (e) => {
@@ -28,11 +36,10 @@ function FindBusInput() {
   return (
     <Wrapper>
       <StyledInput
-        type="number"
         onKeyDown={handleKeyDown}
         autoFocus
         ref={inputRef}
-        placeholder="버스 번호를 검색해보세요"
+        placeholder="버스 또는 정류장을 검색해보세요"
       />
       <IconWrapper onClick={handleSearchInfo}>
         <FindIcon width={25} height={25} />
@@ -75,4 +82,5 @@ const IconWrapper = styled.div`
   align-self: center;
   display: flex;
   justify-content: center;
+  align-items: center;
 `;

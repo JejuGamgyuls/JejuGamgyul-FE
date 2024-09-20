@@ -11,9 +11,6 @@ function CurrentLocationHeader() {
     </Wrapper>
   );
 }
-
-export default CurrentLocationHeader;
-
 const Wrapper = styled.div`
   width: 100%;
   height: ${STYLE.CURRENT_LOCATION_HEADER_HEIGHT}px;
@@ -29,10 +26,11 @@ const Wrapper = styled.div`
   font-size: 21px;
   font-style: normal;
   font-weight: 700;
-  
+
   svg {
     width: 20px;
     height: 20px;
     margin: 0 9px 0 12px;
   }
 `;
+export default CurrentLocationHeader;
