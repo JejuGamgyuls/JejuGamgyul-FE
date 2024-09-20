@@ -32,7 +32,7 @@ const InfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
-  margin: 26px 0px 0px 26px;
+  padding-left: 26px;
   color: #000;
   font-family: Pretendard;
 `;
