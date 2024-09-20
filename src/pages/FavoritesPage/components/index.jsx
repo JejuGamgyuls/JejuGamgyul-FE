@@ -1,5 +1,11 @@
+import Header from './Header';
+
 function Favorites() {
-  return <div>favorites</div>;
+  return (
+    <div>
+      <Header />
+    </div>
+  );
 }
 
 export default Favorites;
