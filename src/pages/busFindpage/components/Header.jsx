@@ -6,6 +6,7 @@ import styled from 'styled-components';
 
 function Header() {
   const { busNumber } = useParams();
+  console.log(busNumber);
   return (
     <Wrapper>
       <BusInfo>

@@ -1,13 +1,15 @@
 import FavoriteIcon from '@assets/svg/FavoriteIcon.svg?react';
 import LocationIcon from '@assets/svg/LocationIcon.svg?react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 function BusStopHeader() {
+  const { busStop } = useParams();
   return (
     <Wrapper>
       <InfoWrapper>
         <BusStopInfo>
-          <BusStopName>&lt; 선릉역</BusStopName>
+          <BusStopName>&lt; {busStop}</BusStopName>
           <IconWrapper>
             <LocationIcon style={{ width: '24px', height: '24px' }} />
             <FavoriteIcon style={{ width: '24px', height: '24px', cursor: 'pointer' }} />

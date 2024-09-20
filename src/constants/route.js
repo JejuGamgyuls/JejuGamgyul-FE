@@ -1,4 +1,5 @@
 export const ROUTE = {
   ROOT: '/',
-  BUSFIND: '/search/:busNumber',
+  BUSFIND: '/search/bus/:busNumber',
+  BUSSTOP: '/search/station/:busStop',
 };
