@@ -17,7 +17,7 @@ function Header() {
       </TitleWrapper>
       <CountsWrapper>
         <TotalCounts>
-          전체 <span style={{ color: 'var(--NavOrange, #E37653)' }}>4</span>개
+          전체 <span style={{ color: 'var(--NavOrange, #E37653)' }}>5</span>개
         </TotalCounts>
         <CurrentTime>
           <TimeMarker>오전 07 : 05 기준</TimeMarker>

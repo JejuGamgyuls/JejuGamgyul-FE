@@ -1,4 +1,6 @@
-import ThreeDot from '@assets/svg/ThreeDot.svg?react';
+import ThreeDotIcon from '@assets/svg/ThreeDotIcon.svg?react';
+import TrashIcon from '@assets/svg/TrashIcon.svg?react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 function FavoriteItem({
@@ -12,33 +14,72 @@ function FavoriteItem({
   arrMsg2,
   stopsLeft2,
 }) {
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const modalRef = useRef();
+  const iconWrapperRef = useRef();
+
+  const handleClickOutside = (event) => {
+    if (
+      modalRef.current &&
+      !modalRef.current.contains(event.target) &&
+      iconWrapperRef.current &&
+      !iconWrapperRef.current.contains(event.target)
+    ) {
+      setIsDeleteModalOpen(false); // 모달 외부 클릭 시 모달 닫기
+    }
+  };
+
+  useEffect(() => {
+    if (isDeleteModalOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isDeleteModalOpen]);
+
+  const toggleDeleteModal = () => {
+    setIsDeleteModalOpen((prev) => !prev);
+  };
   return (
-    <Wrapper>
-      <ItemWrapper>
-        <StationDetails>
-          <StationInfo>
-            <StationName>{stationName}</StationName>
-            <StationId>{stationNum}</StationId>
-          </StationInfo>
-          <IconWrapper>
-            <ThreeDot />
-          </IconWrapper>
-        </StationDetails>
-        <DirectionDetails>{busDirection}</DirectionDetails>
-        <MoreInfos>
-          <BusInfo>
-            <RouteTypeTag>{routeType}</RouteTypeTag>
-            <BusNum>{busNum}</BusNum>
-          </BusInfo>
-          <ArrivalDetails>
-            <ArrivalMessage>{arrMsg1}</ArrivalMessage>
-            <StopsLeft>{stopsLeft1}</StopsLeft>
-            <ArrivalMessage>{arrMsg2}</ArrivalMessage>
-            <StopsLeft>{stopsLeft2}</StopsLeft>
-          </ArrivalDetails>
-        </MoreInfos>
-      </ItemWrapper>
-    </Wrapper>
+    <>
+      <Wrapper>
+        <ItemWrapper>
+          {isDeleteModalOpen && (
+            <DeleteModal ref={modalRef}>
+              <ModalText>삭제</ModalText>
+              <DeleteIcon>
+                <TrashIcon style={{ width: '24px', height: '24px' }} />
+              </DeleteIcon>
+            </DeleteModal>
+          )}
+          <StationDetails>
+            <StationInfo>
+              <StationName>{stationName}</StationName>
+              <StationId>{stationNum}</StationId>
+            </StationInfo>
+            <IconWrapper ref={iconWrapperRef} onClick={toggleDeleteModal}>
+              <ThreeDotIcon />
+            </IconWrapper>
+          </StationDetails>
+          <DirectionDetails>{busDirection}</DirectionDetails>
+          <MoreInfos>
+            <BusInfo>
+              <RouteTypeTag>{routeType}</RouteTypeTag>
+              <BusNum>{busNum}</BusNum>
+            </BusInfo>
+            <ArrivalDetails>
+              <ArrivalMessage>{arrMsg1}</ArrivalMessage>
+              <StopsLeft>{stopsLeft1}</StopsLeft>
+              <ArrivalMessage>{arrMsg2}</ArrivalMessage>
+              <StopsLeft>{stopsLeft2}</StopsLeft>
+            </ArrivalDetails>
+          </MoreInfos>
+        </ItemWrapper>
+      </Wrapper>
+    </>
   );
 }
 const Wrapper = styled.div`
@@ -58,6 +99,7 @@ const ItemWrapper = styled.div`
   height: 71px;
   display: flex;
   flex-direction: column;
+  position: relative;
 `;
 const StationDetails = styled.div`
   width: 100%;
@@ -159,5 +201,35 @@ const ArrivalMessage = styled.div`
 const StopsLeft = styled.div`
   color: #767676;
   padding-right: 5px;
+`;
+const DeleteModal = styled.div`
+  display: flex;
+  width: 108px;
+  height: 38px;
+  padding: 9px 16px;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  right: 0;
+  top: 15px;
+  box-sizing: border-box;
+  color: var(--NavOrange, #e37653);
+  text-align: center;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  border-radius: 2px;
+  border: 0.5px solid var(--Gray06, #767676);
+  background: #fff;
+  box-shadow: 2px 4px 4px 0px rgba(0, 0, 0, 0.1);
+`;
+const ModalText = styled.div`
+  width: 30px;
+`;
+const DeleteIcon = styled.div`
+  width: 24px;
+  height: 24px;
 `;
 export default FavoriteItem;
