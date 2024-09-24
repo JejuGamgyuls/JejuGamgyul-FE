@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { busDirectionState } from '../atoms/busDirectionState';
 
 function BusDetailDirection({ busInfo }) {
-  const dirList = [busInfo.stStationNm, busInfo.edStationNm];
+  const dirList = [busInfo.edStationNm, busInfo.stStationNm];
   const [direction, setDirection] = useRecoilState(busDirectionState);
 
   useEffect(() => {
