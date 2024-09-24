@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
 
 import BusDetail from './BusDetail';
 import BusDetailDirection from './BusDetailDirection';
@@ -55,10 +56,19 @@ function BusDetailInfo() {
     <div>
       <Header busInfo={busInfo} />
       <BusDetail busInfo={busInfo} />
-      <BusDetailDirection busInfo={busInfo} />
+      <StickyWrapper>
+        <BusDetailDirection busInfo={busInfo} />
+      </StickyWrapper>
       <BusRoute stations={stations} />
     </div>
   );
 }
 
 export default BusDetailInfo;
+
+const StickyWrapper = styled.div`
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+`;
