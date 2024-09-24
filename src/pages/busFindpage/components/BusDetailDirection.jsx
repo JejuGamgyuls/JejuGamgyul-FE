@@ -10,7 +10,7 @@ function BusDetailDirection({ busInfo }) {
 
   useEffect(() => {
     setDirection(dirList[0]);
-  }, []);
+  }, [busInfo]);
 
   const handleDirection = (dir) => {
     setDirection(dir);

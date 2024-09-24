@@ -8,7 +8,6 @@ import BusRoute from './BusRoute';
 import Header from './Header';
 
 function BusDetailInfo() {
-  const [direction, setDirection] = useState('');
   const { busNumber } = useParams();
   const [busInfo, setBusInfo] = useState(null);
   const [stations, setStations] = useState([]);
@@ -56,7 +55,7 @@ function BusDetailInfo() {
     <div>
       <Header busInfo={busInfo} />
       <BusDetail busInfo={busInfo} />
-      <BusDetailDirection busInfo={busInfo} setDirection={setDirection} />
+      <BusDetailDirection busInfo={busInfo} />
       <BusRoute stations={stations} />
     </div>
   );
