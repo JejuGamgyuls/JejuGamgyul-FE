@@ -2,14 +2,16 @@ import ReloadIcon from '@assets/svg/ReloadIcon.svg?react';
 import { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 
-function BusDetail() {
+function BusDetail({ busInfo }) {
   const [rotate, setRotate] = useState(false);
+  console.log(busInfo.corpNm.split('  ')[1]);
   const reload = () => {
     setRotate(true);
     setTimeout(() => {
       setRotate(false);
     }, 500);
   };
+
   return (
     <Wrapper>
       <Menu>
@@ -26,7 +28,7 @@ function BusDetail() {
       </Menu>
       <Menu>
         <MenuItem>저상예약 </MenuItem>
-        <MenuItem>02-1234-5678</MenuItem>
+        <MenuItem>{busInfo.corpNm.split('  ')[1]}</MenuItem>
       </Menu>
       <Menu
         style={{

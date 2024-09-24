@@ -1,17 +1,18 @@
 import BlackBusIcon from '@assets/svg/BlackBusIcon.svg?react';
 import GrayBlankStarIcon from '@assets/svg/GrayBlankStarIcon.svg?react';
 import { STYLE } from '@constants/const';
-import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-function Header() {
-  const { busNumber } = useParams();
-  console.log(busNumber);
+function Header({ busInfo }) {
+  if (!busInfo) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Wrapper>
       <BusInfo>
         <BlackBusIcon fill="black" width={30} height={30} />
-        <BusNumber>{busNumber}</BusNumber>
+        <BusNumber>{busInfo.busRouteNm}</BusNumber>
       </BusInfo>
       <GrayBlankStarIcon width={24} height={24} />
     </Wrapper>
