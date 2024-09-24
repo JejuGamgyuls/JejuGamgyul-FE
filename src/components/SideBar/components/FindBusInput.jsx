@@ -2,6 +2,7 @@ import FindIcon from '@assets/svg/SearchIcon.svg?react';
 import { navigationBarState } from '@atoms/navigationBarState';
 import { CATEGORY } from '@constants/const';
 import { ROUTE } from '@constants/route';
+import axios from 'axios';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
@@ -11,7 +12,7 @@ function FindBusInput() {
   const navigate = useNavigate();
   const [, setCategory] = useRecoilState(navigationBarState);
 
-  const handleSearchInfo = () => {
+  const handleSearchInfo = async () => {
     const inputValue = inputRef.current.value;
     if (!isNaN(Number(inputValue))) {
       const busRoute = ROUTE.BUSFIND.replace(':busNumber', inputValue); // 버스 검색

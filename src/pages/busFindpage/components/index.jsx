@@ -57,6 +57,7 @@ function BusDetailInfo() {
       <BusDetail busInfo={busInfo} />
       <BusDetailDirection busInfo={busInfo} />
       <BusRoute stations={stations} />
+      <BusRoute />
     </div>
   );
 }
