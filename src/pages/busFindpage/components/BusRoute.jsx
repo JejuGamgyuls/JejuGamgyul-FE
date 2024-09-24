@@ -1,7 +1,5 @@
 import DownArrowLineIcon from '@assets/svg/DownArrowLineIcon.svg?react';
 import TurnIcon from '@assets/svg/TurnIcon.svg?react';
-import { scrollByDirectionState } from '@atoms/NavigationBarState';
-import { useEffect, useRef } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
@@ -52,35 +50,14 @@ function nextStatusColor(status) {
 
 function BusRoute({ stations }) {
   const [direction] = useRecoilState(busDirectionState);
-  const [, setSelectedDirection] = useRecoilState(scrollByDirectionState);
-  const itemRefs = useRef([]);
 
-  useEffect(() => {
-    const matchingStationIndex = stations.findIndex((station) => station.direction === direction);
-
-    if (matchingStationIndex == 0) {
-      setSelectedDirection('end');
-    } else if (
-      matchingStationIndex !== -1 &&
-      matchingStationIndex > 1 &&
-      itemRefs.current[matchingStationIndex - 2]
-    ) {
-      itemRefs.current[matchingStationIndex - 2].scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      });
-      setSelectedDirection('start');
-    }
-  }, [direction, stations]);
-
+  const filteredStations =
+    stations[0]?.direction === direction ? stations : [...stations].reverse();
+  console.log(filteredStations);
   return (
     <Wrapper>
-      {stations.map((item, index) => (
-        <BusItemWrapper
-          key={index}
-          ref={(el) => (itemRefs.current[index] = el)}
-          style={{ position: 'relative', width: '100%', height: '80px' }}
-        >
+      {filteredStations.map((item, index) => (
+        <BusItemWrapper key={index} style={{ position: 'relative', width: '100%', height: '80px' }}>
           <StatusWrapper>
             <IconWrapper>
               <DownArrowLineIcon />
@@ -204,15 +181,16 @@ export const EndPoint = styled.div`
 `;
 export const RoundingPointWrapper = styled.div`
   width: 50px;
-  border-radius: 14px;
+  border-radius: 8px;
   background: #868c94;
   display: flex;
   justify-content: space-around;
-  padding: 4px 8px;
+  padding: 3px;
   align-items: center;
   position: absolute;
 `;
 export const RoundingPointText = styled.div`
-  width: 40px;
+  width: 30px;
+  font-size: 10px;
   color: #fff;
 `;

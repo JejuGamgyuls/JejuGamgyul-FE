@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
 
 import BusDetail from './BusDetail';
 import BusDetailDirection from './BusDetailDirection';
@@ -9,15 +8,16 @@ import BusRoute from './BusRoute';
 import Header from './Header';
 
 function BusDetailInfo() {
+  const [direction, setDirection] = useState('');
   const { busNumber } = useParams();
   const [busInfo, setBusInfo] = useState(null);
   const [stations, setStations] = useState([]);
 
-  const fetchBusInfo = async (strSrch) => {
+  const fetchBusInfo = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/getBusRouteList', {
-        params: { strSrch },
-      });
+      const response = await axios.get(
+        `http://localhost:8080/getBusRouteList?strSrch=${busNumber}`,
+      );
       const data = response.data.msgBody.itemList[0];
       setBusInfo(data);
     } catch (err) {
@@ -25,12 +25,14 @@ function BusDetailInfo() {
     }
   };
 
-  const fetchStationsByRoute = async (busRouteId) => {
+  const fetchStationsByRoute = async () => {
     if (!busInfo || !busInfo.busRouteId) return;
     try {
-      const response = await axios.get('http://localhost:8080/getStaionByRoute', {
-        params: { busRouteId },
-      }); // 정류장 정보 호출
+      const busRouteId = busInfo.busRouteId;
+      const response = await axios.get(
+        `http://localhost:8080/getStaionByRoute?busRouteId=${busRouteId}`,
+        {},
+      ); // 정류장 정보 호출
       const stationData = response.data.msgBody.itemList;
       console.log(stationData);
       setStations(stationData);
@@ -49,19 +51,9 @@ function BusDetailInfo() {
     }
   };
   useEffect(() => {
-    fetchBusInfo(busNumber);
-  }, [busNumber]);
-
-  useEffect(() => {
     if (busInfo && busInfo.busRouteId) {
       fetchStationsByRoute(busInfo.busRouteId);
       fetchBusPosition(busInfo.busRouteId);
-    }
-  }, [busInfo]);
-
-  useEffect(() => {
-    if (busInfo && busInfo.busRouteId) {
-      fetchStationsByRoute();
     }
   }, [busInfo]);
 
@@ -72,19 +64,10 @@ function BusDetailInfo() {
     <div>
       <Header busInfo={busInfo} />
       <BusDetail busInfo={busInfo} />
-      <StickyWrapper>
-        <BusDetailDirection busInfo={busInfo} />
-      </StickyWrapper>
+      <BusDetailDirection busInfo={busInfo} setDirection={setDirection} />
       <BusRoute stations={stations} />
     </div>
   );
 }
 
 export default BusDetailInfo;
-
-const StickyWrapper = styled.div`
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-`;

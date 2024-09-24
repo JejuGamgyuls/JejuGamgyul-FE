@@ -5,12 +5,12 @@ import styled from 'styled-components';
 import { busDirectionState } from '../atoms/busDirectionState';
 
 function BusDetailDirection({ busInfo }) {
-  const dirList = [busInfo.edStationNm, busInfo.stStationNm];
+  const dirList = [busInfo.stStationNm, busInfo.edStationNm];
   const [direction, setDirection] = useRecoilState(busDirectionState);
 
   useEffect(() => {
     setDirection(dirList[0]);
-  }, [busInfo]);
+  }, []);
 
   const handleDirection = (dir) => {
     setDirection(dir);
