@@ -53,7 +53,7 @@ function BusRoute({ stations }) {
 
   const filteredStations =
     stations[0]?.direction === direction ? stations : [...stations].reverse();
-  console.log(filteredStations);
+
   return (
     <Wrapper>
       {filteredStations.map((item, index) => (
@@ -181,16 +181,15 @@ export const EndPoint = styled.div`
 `;
 export const RoundingPointWrapper = styled.div`
   width: 50px;
-  border-radius: 8px;
+  border-radius: 14px;
   background: #868c94;
   display: flex;
   justify-content: space-around;
-  padding: 3px;
+  padding: 4px 8px;
   align-items: center;
   position: absolute;
 `;
 export const RoundingPointText = styled.div`
-  width: 30px;
-  font-size: 10px;
+  width: 40px;
   color: #fff;
 `;
