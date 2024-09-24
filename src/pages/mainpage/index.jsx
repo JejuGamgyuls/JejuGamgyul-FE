@@ -1,6 +1,5 @@
 import NavigationBar from '@components/NavigationBar';
 import SideBar from '@components/SideBar';
-import axios from 'axios';
 import { NavermapsProvider } from 'react-naver-maps';
 
 import NaverMapContainer from './NaverMapContainer';
