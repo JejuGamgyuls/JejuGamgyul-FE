@@ -24,11 +24,7 @@ function BusDetail({ busInfo }) {
       </Menu>
       <Menu>
         <MenuItem>배차 간격</MenuItem>
-        <MenuItem> 10분</MenuItem>
-      </Menu>
-      <Menu>
-        <MenuItem>저상예약 </MenuItem>
-        <MenuItem>{busInfo.corpNm.split('  ')[1]}</MenuItem>
+        <MenuItem>10분</MenuItem>
       </Menu>
       {corpNum && (
         <Menu>
