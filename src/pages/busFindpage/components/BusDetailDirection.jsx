@@ -1,11 +1,17 @@
+import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { busDirectionState } from '../atoms/busDirectionState';
 
-function BusDetailDirection() {
-  const dirList = ['청량리 방면', '상계동 방면'];
+function BusDetailDirection({ busInfo }) {
+  const dirList = [busInfo.stStationNm, busInfo.edStationNm];
   const [direction, setDirection] = useRecoilState(busDirectionState);
+
+  useEffect(() => {
+    setDirection(dirList[0]);
+  }, []);
+
   const handleDirection = (dir) => {
     setDirection(dir);
   };
