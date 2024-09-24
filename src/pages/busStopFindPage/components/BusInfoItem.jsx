@@ -1,15 +1,8 @@
 import BlueBusIcon from '@assets/svg/BlueBusIcon.svg?react';
+import useGetDirection from '@hooks/useGetDirection';
 import styled from 'styled-components';
-function BusInfoItem({
-  busNumber,
-  busDirection,
-  loc,
-  route,
-  arrMsg1,
-  stopsLeft1,
-  arrMsg2,
-  stopsLeft2,
-}) {
+function BusInfoItem({ busRouteId, arrmsg1, arrmsg2, rtNm, exps1, exps2 }) {
+  const { direction } = useGetDirection(busRouteId);
   return (
     <Wrapper>
       <BusInfoWrapper>
@@ -18,18 +11,22 @@ function BusInfoItem({
         </IconWrapper>
         <BusInfo>
           <BusDetails>
-            <BusNumber>{busNumber}</BusNumber>
-            <BusDirection>{busDirection}</BusDirection>
+            <BusNumber>{rtNm}</BusNumber>
+            {/* <BusDirection>{busDirection}</BusDirection> */}
           </BusDetails>
           <RouteDetails>
-            <Loc>{loc}</Loc>
-            <Route>{route}</Route>
+            {/* <Loc>{loc}</Loc> */}
+            <Route>
+              {direction.from}
+              {' <-> '}
+              {direction.to}
+            </Route>
           </RouteDetails>
           <ArrivalDetails>
-            <ArrivalMessage>{arrMsg1}</ArrivalMessage>
-            <StopsLeft>{stopsLeft1}</StopsLeft>
-            <ArrivalMessage>{arrMsg2}</ArrivalMessage>
-            <StopsLeft>{stopsLeft2}</StopsLeft>
+            <ArrivalMessage>{arrmsg1}</ArrivalMessage>
+            <StopsLeft>{exps1}</StopsLeft>
+            <ArrivalMessage>{arrmsg2}</ArrivalMessage>
+            <StopsLeft>{exps2}</StopsLeft>
           </ArrivalDetails>
         </BusInfo>
       </BusInfoWrapper>
