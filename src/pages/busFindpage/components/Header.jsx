@@ -18,6 +18,8 @@ function Header({ busInfo }) {
         <IconWrapper>
           <GrayBlankStarIcon width={24} height={24} />
         </IconWrapper>
+        <BlackBusIcon fill="black" width={30} height={30} />
+        <BusNumber>{busInfo.busRouteNm}</BusNumber>
       </BusInfo>
     </Wrapper>
   );
