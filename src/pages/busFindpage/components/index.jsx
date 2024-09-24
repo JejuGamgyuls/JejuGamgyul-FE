@@ -59,6 +59,12 @@ function BusDetailInfo() {
     }
   }, [busInfo]);
 
+  useEffect(() => {
+    if (busInfo && busInfo.busRouteId) {
+      fetchStationsByRoute();
+    }
+  }, [busInfo]);
+
   if (!busInfo) {
     return <div>Loading...</div>; // 데이터 로딩 중 처리
   }

@@ -4,7 +4,7 @@ import styled, { keyframes } from 'styled-components';
 
 function BusDetail({ busInfo }) {
   const [rotate, setRotate] = useState(false);
-  console.log(busInfo.corpNm.split('  ')[1]);
+  const corpNum = busInfo.corpNm.split('  ')[1];
   const reload = () => {
     setRotate(true);
     setTimeout(() => {
@@ -30,7 +30,7 @@ function BusDetail({ busInfo }) {
         <MenuItem>저상예약 </MenuItem>
         <MenuItem>{busInfo.corpNm.split('  ')[1]}</MenuItem>
       </Menu>
-      {busInfo.corpNum && (
+      {corpNum && (
         <Menu>
           <MenuItem>저상예약</MenuItem>
           <MenuItem>{busInfo.corpNm.split('  ')[1]}</MenuItem>
