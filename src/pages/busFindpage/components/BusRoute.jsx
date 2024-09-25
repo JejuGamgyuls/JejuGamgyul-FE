@@ -54,6 +54,7 @@ function BusRoute({ stations }) {
   const [direction] = useRecoilState(busDirectionState);
   const [, setSelectedDirection] = useRecoilState(scrollByDirectionState);
   const itemRefs = useRef([]);
+
   useEffect(() => {
     const matchingStationIndex = stations.findIndex((station) => station.direction === direction);
 
