@@ -18,6 +18,8 @@ function Header({ busInfo }) {
         <IconWrapper>
           <GrayBlankStarIcon width={24} height={24} />
         </IconWrapper>
+        <BlackBusIcon fill="black" width={30} height={30} />
+        <BusNumber>{busInfo.busRouteNm}</BusNumber>
       </BusInfo>
     </Wrapper>
   );
@@ -54,7 +56,6 @@ const BusNumber = styled.div`
 const BusInfo = styled.div`
   display: flex;
   width: 100%;
-  justify-content: space-between;
   align-items: center;
   gap: 12px;
 `;
