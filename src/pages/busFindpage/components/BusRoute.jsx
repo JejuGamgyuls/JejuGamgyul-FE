@@ -1,5 +1,6 @@
 import DownArrowLineIcon from '@assets/svg/DownArrowLineIcon.svg?react';
 import TurnIcon from '@assets/svg/TurnIcon.svg?react';
+import { scrollByDirectionState } from '@atoms/navigationBarState';
 import { useEffect, useRef } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -51,11 +52,15 @@ function nextStatusColor(status) {
 
 function BusRoute({ stations }) {
   const [direction] = useRecoilState(busDirectionState);
+  const [, setSelectedDirection] = useRecoilState(scrollByDirectionState);
   const itemRefs = useRef([]);
+
   useEffect(() => {
     const matchingStationIndex = stations.findIndex((station) => station.direction === direction);
 
-    if (
+    if (matchingStationIndex == 0) {
+      setSelectedDirection('end');
+    } else if (
       matchingStationIndex !== -1 &&
       matchingStationIndex > 1 &&
       itemRefs.current[matchingStationIndex - 2]
@@ -64,8 +69,10 @@ function BusRoute({ stations }) {
         behavior: 'smooth',
         block: 'start',
       });
+      setSelectedDirection('start');
     }
   }, [direction, stations]);
+
   return (
     <Wrapper>
       {stations.map((item, index) => (

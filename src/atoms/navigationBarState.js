@@ -12,3 +12,11 @@ export const navigationBarState = atom({
   default: CATEGORY.HOME,
   effects_UNSTABLE: [persistAtom],
 });
+export const selectedState = atom({
+  key: 'selectedState',
+  default: 0,
+});
+export const scrollByDirectionState = atom({
+  key: 'scrollByDirectionState',
+  default: 'end',
+});
