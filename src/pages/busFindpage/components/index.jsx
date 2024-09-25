@@ -13,11 +13,11 @@ function BusDetailInfo() {
   const [busInfo, setBusInfo] = useState(null);
   const [stations, setStations] = useState([]);
 
-  const fetchBusInfo = async () => {
+  const fetchBusInfo = async (strSrch) => {
     try {
-      const response = await axios.get(
-        `http://localhost:8080/getBusRouteList?strSrch=${busNumber}`,
-      );
+      const response = await axios.get('http://localhost:8080/getBusRouteList', {
+        params: { strSrch },
+      });
       const data = response.data.msgBody.itemList[0];
       setBusInfo(data);
     } catch (err) {
@@ -25,27 +25,37 @@ function BusDetailInfo() {
     }
   };
 
-  const fetchStationsByRoute = async () => {
+  const fetchStationsByRoute = async (busRouteId) => {
     if (!busInfo || !busInfo.busRouteId) return;
     try {
-      const busRouteId = busInfo.busRouteId;
-      const response = await axios.get(
-        `http://localhost:8080/getStaionByRoute?busRouteId=${busRouteId}`,
-        {},
-      ); // 정류장 정보 호출
+      const response = await axios.get('http://localhost:8080/getStaionByRoute', {
+        params: { busRouteId },
+      }); // 정류장 정보 호출
       const stationData = response.data.msgBody.itemList;
       setStations(stationData);
     } catch (err) {
       console.log('정류장 정보 API 호출에 실패했습니다.');
     }
   };
+
+  const fetchBusPosition = async (busRouteId) => {
+    try {
+      const response = await axios.get('http://localhost:8080/getBusPosition', {
+        params: { busRouteId },
+      });
+      console.log(response);
+    } catch (err) {
+      console.log('API 호출에 실패했습니다.');
+    }
+  };
   useEffect(() => {
-    fetchBusInfo();
+    fetchBusInfo(busNumber);
   }, [busNumber]);
 
   useEffect(() => {
     if (busInfo && busInfo.busRouteId) {
-      fetchStationsByRoute();
+      fetchStationsByRoute(busInfo.busRouteId);
+      fetchBusPosition(busInfo.busRouteId);
     }
   }, [busInfo]);
 
