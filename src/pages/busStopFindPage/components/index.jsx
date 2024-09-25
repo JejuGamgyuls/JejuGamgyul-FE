@@ -1,14 +1,16 @@
+import { navigationBarState } from '@atoms/navigationBarState';
 import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 
 import BusInfoItem from './BusInfoItem';
 import BusStopHeader from './BusStopHeader';
 import { getLowArrInfoByStId } from '../api';
 
-function BusStopInfo() {
+function BusStopInfo({ busStopId }) {
   const [busInfoList, setBusInfoList] = useState([]);
   const fetchBusInfo = async () => {
     try {
-      const busData = await getLowArrInfoByStId('121000009'); // 예시 stId 사용
+      const busData = await getLowArrInfoByStId(busStopId); // 예시 stId 사용
       setBusInfoList(busData);
     } catch (error) {
       console.error('Error fetching bus info:', error);
@@ -22,6 +24,7 @@ function BusStopInfo() {
   useEffect(() => {
     fetchBusInfo();
   }, []);
+
   return (
     <div>
       <BusStopHeader />

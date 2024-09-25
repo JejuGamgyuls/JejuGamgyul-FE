@@ -12,6 +12,7 @@ function BusStopsAround() {
           busStopName={busStop.stopsNm}
           busStopNumber={busStop.stopsNo}
           busDirection={busStop.direction}
+          busStopId={busStop.nodeId}
         />
       ))}
     </div>
