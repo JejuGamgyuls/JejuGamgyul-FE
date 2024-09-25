@@ -1,68 +1,18 @@
+import filtered_stops from '@assets/busLocationInfo/filtered_stops.json';
+
 import BusStopItem from './BusStopItem';
 import CurrentLocationHeader from './CurrentLocationHeader';
-
 function BusStopsAround() {
-  const busStopList = [
-    {
-      busStopName: '서울역',
-      busStopNumber: '1234',
-      busDirection: '서울역 방향',
-    },
-    {
-      busStopName: '서울역',
-      busStopNumber: '1234',
-      busDirection: '서울역 방향',
-    },
-    {
-      busStopName: '서울역',
-      busStopNumber: '1234',
-      busDirection: '서울역 방향',
-    },
-    {
-      busStopName: '서울역',
-      busStopNumber: '1234',
-      busDirection: '서울역 방향',
-    },
-    {
-      busStopName: '서울역',
-      busStopNumber: '1234',
-      busDirection: '서울역 방향',
-    },
-    {
-      busStopName: '서울역',
-      busStopNumber: '1234',
-      busDirection: '서울역 방향',
-    },
-    {
-      busStopName: '서울역',
-      busStopNumber: '1234',
-      busDirection: '서울역 방향',
-    },
-    {
-      busStopName: '서울역',
-      busStopNumber: '1234',
-      busDirection: '서울역 방향',
-    },
-    {
-      busStopName: '서울역',
-      busStopNumber: '1234',
-      busDirection: '서울역 방향',
-    },
-    {
-      busStopName: '서울역',
-      busStopNumber: '1234',
-      busDirection: '서울역 방향',
-    },
-  ];
   return (
     <div>
       <CurrentLocationHeader />
-      {busStopList.map((busStop, index) => (
+      {filtered_stops.map((busStop, index) => (
         <BusStopItem
           key={index}
-          busStopName={busStop.busStopName}
-          busStopNumber={busStop.busStopNumber}
-          busDirection={busStop.busDirection}
+          busStopName={busStop.stopsNm}
+          busStopNumber={busStop.stopsNo}
+          busDirection={busStop.direction}
+          busStopId={busStop.nodeId}
         />
       ))}
     </div>

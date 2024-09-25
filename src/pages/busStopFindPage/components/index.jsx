@@ -1,69 +1,30 @@
+import { navigationBarState } from '@atoms/navigationBarState';
+import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+
 import BusInfoItem from './BusInfoItem';
 import BusStopHeader from './BusStopHeader';
+import { getLowArrInfoByStId } from '../api';
 
-function BusStopInfo() {
-  const busInfoList = [
-    {
-      busNumber: 146,
-      busDirection: '포스코빌딩 방면',
-      loc: '서울',
-      route: '상계주공7단지<->강남역',
-      arrMsg1: '3분',
-      stopsLeft1: '2정류장',
-      arrMsg2: '11분',
-      stopsLeft2: '5정류장',
-    },
-    {
-      busNumber: 146,
-      busDirection: '포스코빌딩 방면',
-      loc: '서울',
-      route: '상계주공7단지<->강남역',
-      arrMsg1: '3분',
-      stopsLeft1: '2정류장',
-      arrMsg2: '11분',
-      stopsLeft2: '5정류장',
-    },
-    {
-      busNumber: 146,
-      busDirection: '포스코빌딩 방면',
-      loc: '서울',
-      route: '상계주공7단지<->강남역',
-      arrMsg1: '3분',
-      stopsLeft1: '2정류장',
-      arrMsg2: '11분',
-      stopsLeft2: '5정류장',
-    },
-    {
-      busNumber: 146,
-      busDirection: '포스코빌딩 방면',
-      loc: '서울',
-      route: '상계주공7단지<->강남역',
-      arrMsg1: '3분',
-      stopsLeft1: '2정류장',
-      arrMsg2: '11분',
-      stopsLeft2: '5정류장',
-    },
-    {
-      busNumber: 146,
-      busDirection: '포스코빌딩 방면',
-      loc: '서울',
-      route: '상계주공7단지<->강남역',
-      arrMsg1: '3분',
-      stopsLeft1: '2정류장',
-      arrMsg2: '11분',
-      stopsLeft2: '5정류장',
-    },
-    {
-      busNumber: 146,
-      busDirection: '포스코빌딩 방면',
-      loc: '서울',
-      route: '상계주공7단지<->강남역',
-      arrMsg1: '3분',
-      stopsLeft1: '2정류장',
-      arrMsg2: '11분',
-      stopsLeft2: '5정류장',
-    },
-  ];
+function BusStopInfo({ busStopId }) {
+  const [busInfoList, setBusInfoList] = useState([]);
+  const fetchBusInfo = async () => {
+    try {
+      const busData = await getLowArrInfoByStId(busStopId); // 예시 stId 사용
+      setBusInfoList(busData);
+    } catch (error) {
+      console.error('Error fetching bus info:', error);
+    }
+  };
+  // setInterval(() => {
+  //   console.log('render');
+  //   fetchBusInfo();
+  // }, 60000);
+
+  useEffect(() => {
+    fetchBusInfo();
+  }, []);
+
   return (
     <div>
       <BusStopHeader />
