@@ -1,3 +1,4 @@
+import ChevronLeft from '@assets/svg/ChevronLeft.svg?react';
 import FavoriteIcon from '@assets/svg/FavoriteIcon.svg?react';
 import LocationIcon from '@assets/svg/LocationIcon.svg?react';
 import { useParams } from 'react-router-dom';
@@ -9,7 +10,9 @@ function BusStopHeader() {
     <Wrapper>
       <InfoWrapper>
         <BusStopInfo>
-          <BusStopName>&lt; {busStop}</BusStopName>
+          <BusStopName>
+            <ChevronLeft style={{ width: '16px', height: '16px' }} /> {busStop}
+          </BusStopName>
           <IconWrapper>
             <LocationIcon style={{ width: '24px', height: '24px' }} />
             <FavoriteIcon style={{ width: '24px', height: '24px', cursor: 'pointer' }} />
@@ -50,9 +53,10 @@ const BusStopInfo = styled.div`
   padding-top: 26px;
 `;
 const BusStopName = styled.div`
-  width: 88px;
   display: flex;
   align-items: center;
+  white-space: nowrap;
+  gap: 10px;
 `;
 const IconWrapper = styled.div`
   width: calc(100% - 88px);
