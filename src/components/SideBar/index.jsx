@@ -1,5 +1,4 @@
-import { navigationBarState, scrollByDirectionState } from '@atoms/navigationBarState';
-
+import { navigationBarState, scrollByDirectionState } from '@atoms/NavigationBarState';
 import { CATEGORY } from '@constants/const';
 import BusDetailInfo from '@pages/busFindpage/components';
 import BusStopInfo from '@pages/busStopFindPage/components';
@@ -62,43 +61,6 @@ function SideBar() {
   const Component = SIDE_BAR_MAP[category];
   const busStopId = new URLSearchParams(window.location.search).get('busStopId');
 
-  const [, setScrollPosition] = useState(0);
-  const selectedDirection = useRecoilValue(scrollByDirectionState);
-  const scrollRef = useRef();
-
-  const setScrollToPosition = (position) => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTo({
-        top: position,
-        behavior: 'smooth',
-      });
-    }
-  };
-  useEffect(() => {
-    const handleScroll = () => {
-      if (scrollRef.current) {
-        setScrollPosition(scrollRef.current.scrollTop);
-      }
-    };
-
-    const currentRef = scrollRef.current;
-
-    if (currentRef) {
-      currentRef.addEventListener('scroll', handleScroll);
-    }
-
-    return () => {
-      if (currentRef) {
-        currentRef.removeEventListener('scroll', handleScroll);
-      }
-    };
-  }, []);
-  useEffect(() => {
-    if (selectedDirection == 'end') {
-      setScrollToPosition(292);
-    }
-  }, [selectedDirection]);
-
   return (
     <S.Wrapper>
       {category !== CATEGORY.FAVORITE && <FindBusInput />}
@@ -113,11 +75,6 @@ function SideBar() {
           <div>카테고리 없음</div>
         )}
       </S.BusStopItemWrapper>
-
-      {/* <S.Wrapper>
-      {category !== CATEGORY.FAVORITE && <FindBusInput />}
-      <S.BusStopItemWrapper ref={scrollRef}>{SIDE_BAR_MAP[category]()}</S.BusStopItemWrapper> */}
-      <S.BusStopItemWrapper ref={scrollRef}>{SIDE_BAR_MAP[category]()}</S.BusStopItemWrapper>
     </S.Wrapper>
   );
 }

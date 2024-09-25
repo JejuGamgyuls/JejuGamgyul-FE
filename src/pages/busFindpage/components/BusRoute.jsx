@@ -1,6 +1,6 @@
 import DownArrowLineIcon from '@assets/svg/DownArrowLineIcon.svg?react';
 import TurnIcon from '@assets/svg/TurnIcon.svg?react';
-import { scrollByDirectionState } from '@atoms/navigationBarState';
+import { scrollByDirectionState } from '@atoms/NavigationBarState';
 import { useEffect, useRef } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';

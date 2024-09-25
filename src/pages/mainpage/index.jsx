@@ -14,7 +14,6 @@ function Mainpage() {
   const [, setCategory] = useRecoilState(navigationBarState);
 
   useEffect(() => {
-    console.log(catetory);
     if (location.pathname === '/') {
       setCategory(CATEGORY.HOME); // URL이 "/"일 때 category를 HOME으로 변경
     }

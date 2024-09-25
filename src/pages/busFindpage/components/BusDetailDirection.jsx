@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
@@ -11,7 +10,6 @@ function BusDetailDirection({ busInfo }) {
 
   useEffect(() => {
     setDirection(dirList[0]);
-
   }, [busInfo]);
 
   const handleDirection = (dir) => {
