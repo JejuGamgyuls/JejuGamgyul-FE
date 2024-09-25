@@ -69,7 +69,6 @@ function BusDetailInfo() {
         <BusDetailDirection busInfo={busInfo} />
       </StickyWrapper>
       <BusRoute stations={stations} />
-      <BusRoute />
     </div>
   );
 }
