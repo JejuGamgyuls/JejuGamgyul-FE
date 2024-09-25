@@ -63,7 +63,7 @@ function SideBar() {
   return (
     <S.Wrapper>
       {category !== CATEGORY.FAVORITE && <FindBusInput />}
-      <S.BusStopItemWrapper>
+      <S.BusStopItemWrapper ref={scrollRef}>
         {Component ? (
           category === CATEGORY.BUSSTOPINFO ? (
             <Component busStopId={busStopId} />
