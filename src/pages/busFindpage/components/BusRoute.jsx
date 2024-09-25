@@ -1,6 +1,6 @@
 import DownArrowLineIcon from '@assets/svg/DownArrowLineIcon.svg?react';
 import TurnIcon from '@assets/svg/TurnIcon.svg?react';
-import { scrollByDirectionState } from '@atoms/NavigationBarState';
+import { scrollByDirectionState } from '@atoms/navigationBarState';
 import { useEffect, useRef } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
@@ -54,7 +54,6 @@ function BusRoute({ stations }) {
   const [direction] = useRecoilState(busDirectionState);
   const [, setSelectedDirection] = useRecoilState(scrollByDirectionState);
   const itemRefs = useRef([]);
-
   useEffect(() => {
     const matchingStationIndex = stations.findIndex((station) => station.direction === direction);
 

@@ -10,8 +10,9 @@ import NaverMapContainer from './NaverMapContainer';
 import * as S from './styles';
 function Mainpage() {
   const naverMapClientId = import.meta.env.VITE_NAVER_MAP_CLIENT_ID;
-  const [, setCategory] = useRecoilState(navigationBarState);
+  const [catetory, setCategory] = useRecoilState(navigationBarState);
   useEffect(() => {
+    console.log(catetory);
     if (location.pathname === '/') {
       setCategory(CATEGORY.HOME); // URL이 "/"일 때 category를 HOME으로 변경
     }

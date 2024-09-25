@@ -21,7 +21,7 @@ function BusDetailInfo() {
       const data = response.data.msgBody.itemList[0];
       setBusInfo(data);
     } catch (err) {
-      console.log('API 호출에 실패했습니다.');
+      console.log('getBusRouteList API 호출에 실패했습니다.');
     }
   };
 
@@ -32,6 +32,7 @@ function BusDetailInfo() {
         params: { busRouteId },
       }); // 정류장 정보 호출
       const stationData = response.data.msgBody.itemList;
+      console.log(stationData);
       setStations(stationData);
     } catch (err) {
       console.log('정류장 정보 API 호출에 실패했습니다.');
@@ -43,7 +44,6 @@ function BusDetailInfo() {
       const response = await axios.get('http://localhost:8080/getBusPosition', {
         params: { busRouteId },
       });
-      console.log(response);
     } catch (err) {
       console.log('API 호출에 실패했습니다.');
     }
@@ -70,7 +70,6 @@ function BusDetailInfo() {
         <BusDetailDirection busInfo={busInfo} />
       </StickyWrapper>
       <BusRoute stations={stations} />
-      <BusRoute />
     </div>
   );
 }

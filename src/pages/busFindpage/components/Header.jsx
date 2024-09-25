@@ -1,5 +1,4 @@
 import BlackBusIcon from '@assets/svg/BlackBusIcon.svg?react';
-import GrayBlankStarIcon from '@assets/svg/GrayBlankStarIcon.svg?react';
 import { STYLE } from '@constants/const';
 import styled from 'styled-components';
 
@@ -49,7 +48,6 @@ const BusNumber = styled.div`
 const BusInfo = styled.div`
   display: flex;
   width: 100%;
-  justify-content: space-between;
   align-items: center;
   gap: 12px;
 `;
