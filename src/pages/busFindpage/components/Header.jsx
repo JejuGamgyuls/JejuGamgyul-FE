@@ -1,4 +1,5 @@
 import BlackBusIcon from '@assets/svg/BlackBusIcon.svg?react';
+import GrayBlankStarIcon from '@assets/svg/GrayBlankStarIcon.svg?react';
 import { STYLE } from '@constants/const';
 import styled from 'styled-components';
 
