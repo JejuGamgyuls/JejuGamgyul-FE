@@ -1,6 +1,7 @@
+import filtered_stops from '@assets/busLocationInfo/filtered_stops.json';
+
 import BusStopItem from './BusStopItem';
 import CurrentLocationHeader from './CurrentLocationHeader';
-import filtered_stops from '../../../assets/busLocationInfo/filtered_stops.json';
 function BusStopsAround() {
   return (
     <div>
