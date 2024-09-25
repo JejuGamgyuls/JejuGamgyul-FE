@@ -73,6 +73,9 @@ function SideBar() {
     <S.Wrapper>
       {category !== CATEGORY.FAVORITE && <FindBusInput />}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 895f4c3 (Chore: 오타 수정)
       <S.BusStopItemWrapper ref={scrollRef}>
         {Component ? (
           category === CATEGORY.BUSSTOPINFO ? (
