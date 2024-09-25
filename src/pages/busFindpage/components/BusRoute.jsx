@@ -1,36 +1,39 @@
 import DownArrowLineIcon from '@assets/svg/DownArrowLineIcon.svg?react';
+import TurnIcon from '@assets/svg/TurnIcon.svg?react';
+import { scrollByDirectionState } from '@atoms/navigationBarState';
+import { useEffect, useRef } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import theme from '../../../../theme';
 import { busDirectionState } from '../atoms/busDirectionState';
 // nextStatus 0: 원활, 1: 보통, 2: 혼잡, 3: 매우혼잡
-const mock = [
-  { name: '흥안운수사계4동종점', id: 11491, nextStatus: '0' },
-  { name: '하계역', id: 11491, nextStatus: '0' },
-  { name: '하계역', id: 11491, nextStatus: '1' },
-  { name: '하계역', id: 11491, nextStatus: '2' },
-  { name: '하계역', id: 11491, nextStatus: '3' },
-  { name: '하계역', id: 11491, nextStatus: '2' },
-  { name: '하계역', id: 11491, nextStatus: '1' },
-  { name: '하계역', id: 11491, nextStatus: '1' },
-  { name: '하계역', id: 11491, nextStatus: '0' },
-  { name: '하계역', id: 11491, nextStatus: '0' },
-  { name: '하계역', id: 11491, nextStatus: '1' },
-  { name: '하계역', id: 11491, nextStatus: '2' },
-  { name: '하계역', id: 11491, nextStatus: '2' },
-  { name: '하계역', id: 11491, nextStatus: '2' },
-  { name: '하계역', id: 11491, nextStatus: '3' },
-  { name: '하계역', id: 11491, nextStatus: '3' },
-  { name: '하계역', id: 11491, nextStatus: '2' },
-  { name: '하계역', id: 11491, nextStatus: '1' },
-  { name: '하계역', id: 11491, nextStatus: '0' },
-  { name: '하계역', id: 11491, nextStatus: '0' },
-  { name: '하계역', id: 11491, nextStatus: '2' },
-  { name: '하계역', id: 11491, nextStatus: '0' },
-  { name: '하계역', id: 11491, nextStatus: '1' },
-  { name: '노원우체국', id: 11491, nextStatus: null },
-];
+// const mock = [
+//   { name: '흥안운수사계4동종점', id: 11491, nextStatus: '0' },
+//   { name: '하계역', id: 11491, nextStatus: '0' },
+//   { name: '하계역', id: 11491, nextStatus: '1' },
+//   { name: '하계역', id: 11491, nextStatus: '2' },
+//   { name: '하계역', id: 11491, nextStatus: '3' },
+//   { name: '하계역', id: 11491, nextStatus: '2' },
+//   { name: '하계역', id: 11491, nextStatus: '1' },
+//   { name: '하계역', id: 11491, nextStatus: '1' },
+//   { name: '하계역', id: 11491, nextStatus: '0' },
+//   { name: '하계역', id: 11491, nextStatus: '0' },
+//   { name: '하계역', id: 11491, nextStatus: '1' },
+//   { name: '하계역', id: 11491, nextStatus: '2' },
+//   { name: '하계역', id: 11491, nextStatus: '2' },
+//   { name: '하계역', id: 11491, nextStatus: '2' },
+//   { name: '하계역', id: 11491, nextStatus: '3' },
+//   { name: '하계역', id: 11491, nextStatus: '3' },
+//   { name: '하계역', id: 11491, nextStatus: '2' },
+//   { name: '하계역', id: 11491, nextStatus: '1' },
+//   { name: '하계역', id: 11491, nextStatus: '0' },
+//   { name: '하계역', id: 11491, nextStatus: '0' },
+//   { name: '하계역', id: 11491, nextStatus: '2' },
+//   { name: '하계역', id: 11491, nextStatus: '0' },
+//   { name: '하계역', id: 11491, nextStatus: '1' },
+//   { name: '노원우체국', id: 11491, nextStatus: null },
+// ];
 
 function nextStatusColor(status) {
   switch (status) {
@@ -47,26 +50,57 @@ function nextStatusColor(status) {
   }
 }
 
-function BusRoute() {
+function BusRoute({ stations }) {
   const [direction] = useRecoilState(busDirectionState);
+  const [, setSelectedDirection] = useRecoilState(scrollByDirectionState);
+  const itemRefs = useRef([]);
+
+  useEffect(() => {
+    const matchingStationIndex = stations.findIndex((station) => station.direction === direction);
+
+    if (matchingStationIndex == 0) {
+      setSelectedDirection('end');
+    } else if (
+      matchingStationIndex !== -1 &&
+      matchingStationIndex > 1 &&
+      itemRefs.current[matchingStationIndex - 2]
+    ) {
+      itemRefs.current[matchingStationIndex - 2].scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+      setSelectedDirection('start');
+    }
+  }, [direction, stations]);
+
   return (
     <Wrapper>
-      {mock.map((item, index) => (
-        <BusItemWrapper key={index} style={{ position: 'relative', width: '100%', height: '80px' }}>
+      {stations.map((item, index) => (
+        <BusItemWrapper
+          key={index}
+          ref={(el) => (itemRefs.current[index] = el)}
+          style={{ position: 'relative', width: '100%', height: '80px' }}
+        >
           <StatusWrapper>
             <IconWrapper>
               <DownArrowLineIcon />
+              {item.transYn == 'Y' && (
+                <RoundingPointWrapper>
+                  <RoundingPointText>회차</RoundingPointText>
+                  <TurnIcon style={{ width: '12px', height: '12px' }} />
+                </RoundingPointWrapper>
+              )}
             </IconWrapper>
-            <NextStatus status={item.nextStatus} index={index} mockLen={mock.length} />
+            <NextStatus status={item.nextStatus} index={index} mockLen={stations.length} />
           </StatusWrapper>
           <BusStopItem>
-            <BusStopText index={index} mockLen={mock.length}>
+            <BusStopText index={index} mockLen={stations.length}>
               <BusStopName>
-                {item.name}
+                {item.stationNm}
                 {index == 0 && <EndPoint>기점</EndPoint>}
-                {index === mock.length - 1 && <EndPoint>종점</EndPoint>}
+                {index === stations.length - 1 && <EndPoint>종점</EndPoint>}
               </BusStopName>
-              <BusStopId> {item.id}</BusStopId>
+              <BusStopId> {item.arsId}</BusStopId>
             </BusStopText>
           </BusStopItem>
         </BusItemWrapper>
@@ -80,7 +114,6 @@ const IconWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
 `;
 const Wrapper = styled.div`
   display: flex;
@@ -168,4 +201,18 @@ export const EndPoint = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 10px;
+`;
+export const RoundingPointWrapper = styled.div`
+  width: 50px;
+  border-radius: 14px;
+  background: #868c94;
+  display: flex;
+  justify-content: space-around;
+  padding: 4px 8px;
+  align-items: center;
+  position: absolute;
+`;
+export const RoundingPointText = styled.div`
+  width: 40px;
+  color: #fff;
 `;

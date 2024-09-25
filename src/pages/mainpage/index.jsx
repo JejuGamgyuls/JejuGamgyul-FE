@@ -11,11 +11,13 @@ import * as S from './styles';
 function Mainpage() {
   const naverMapClientId = import.meta.env.VITE_NAVER_MAP_CLIENT_ID;
   const [, setCategory] = useRecoilState(navigationBarState);
+  
   useEffect(() => {
     if (location.pathname === '/') {
       setCategory(CATEGORY.HOME); // URL이 "/"일 때 category를 HOME으로 변경
     }
   }, [location.pathname, setCategory]);
+  
   return (
     <>
       <S.SideWrapper>

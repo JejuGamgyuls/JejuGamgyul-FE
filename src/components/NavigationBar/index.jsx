@@ -3,7 +3,7 @@ import FilledStarIcon from '@assets/svg/filledStarIcon.svg?react';
 import HomeIcon from '@assets/svg/homeIcon.svg?react';
 import TimeIcon from '@assets/svg/timeIcon.svg?react';
 import UserIcon from '@assets/svg/userIcon.svg?react';
-import { navigationBarState } from '@atoms/navigationBarState';
+import { navigationBarState } from '@atoms/NavigationBarState';
 import { CATEGORY } from '@constants/const';
 import { useRecoilState } from 'recoil';
 

@@ -1,11 +1,17 @@
+import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { busDirectionState } from '../atoms/busDirectionState';
 
-function BusDetailDirection() {
-  const dirList = ['청량리 방면', '상계동 방면'];
+function BusDetailDirection({ busInfo }) {
+  const dirList = [busInfo.edStationNm, busInfo.stStationNm];
   const [direction, setDirection] = useRecoilState(busDirectionState);
+
+  useEffect(() => {
+    setDirection(dirList[0]);
+  }, [busInfo]);
+
   const handleDirection = (dir) => {
     setDirection(dir);
   };
@@ -55,8 +61,9 @@ const RoutePathText = styled.div`
   font-size: 14px;
   font-style: normal;
   line-height: normal;
-  width: 75px;
-  height: 30px;
+  min-width: 75px;
+  height: auto;
+  text-align: center;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -65,4 +72,8 @@ const RoutePathText = styled.div`
   color: ${(props) => (props.isSelected ? 'var(--Gray08, #fff)' : 'var(--Gray01, #404040)')};
   background-color: ${(props) => (props.isSelected ? 'var(--Orange, #FD825B)' : ' #fff')};
   font-weight: ${(props) => (props.isSelected ? '600' : '500')};
+  &:hover {
+    cursor: pointer;
+  }
+  padding: 5px;
 `;
