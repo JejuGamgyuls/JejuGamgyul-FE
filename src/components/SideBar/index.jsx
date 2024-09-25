@@ -1,4 +1,5 @@
 import { navigationBarState, scrollByDirectionState } from '@atoms/navigationBarState';
+
 import { CATEGORY } from '@constants/const';
 import BusDetailInfo from '@pages/busFindpage/components';
 import BusStopInfo from '@pages/busStopFindPage/components';
@@ -21,6 +22,42 @@ const SIDE_BAR_MAP = {
 
 function SideBar() {
   const [category] = useRecoilState(navigationBarState);
+  const [, setScrollPosition] = useState(0);
+  const selectedDirection = useRecoilValue(scrollByDirectionState);
+  const scrollRef = useRef();
+
+  const setScrollToPosition = (position) => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTo({
+        top: position,
+        behavior: 'smooth',
+      });
+    }
+  };
+  useEffect(() => {
+    const handleScroll = () => {
+      if (scrollRef.current) {
+        setScrollPosition(scrollRef.current.scrollTop);
+      }
+    };
+
+    const currentRef = scrollRef.current;
+
+    if (currentRef) {
+      currentRef.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      if (currentRef) {
+        currentRef.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, []);
+  useEffect(() => {
+    if (selectedDirection == 'end') {
+      setScrollToPosition(292);
+    }
+  }, [selectedDirection]);
 
   const Component = SIDE_BAR_MAP[category];
   const busStopId = new URLSearchParams(window.location.search).get('busStopId');
