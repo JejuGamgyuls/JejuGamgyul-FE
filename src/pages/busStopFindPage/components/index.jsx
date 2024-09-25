@@ -10,15 +10,14 @@ function BusStopInfo() {
     try {
       const busData = await getLowArrInfoByStId('121000009'); // 예시 stId 사용
       setBusInfoList(busData);
-      console.log('bus', busData);
     } catch (error) {
       console.error('Error fetching bus info:', error);
     }
   };
-  setInterval(() => {
-    console.log('render');
-    fetchBusInfo();
-  }, 30000);
+  // setInterval(() => {
+  //   console.log('render');
+  //   fetchBusInfo();
+  // }, 60000);
 
   useEffect(() => {
     fetchBusInfo();
