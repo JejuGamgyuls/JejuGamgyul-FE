@@ -1,8 +1,35 @@
 import BlueBusIcon from '@assets/svg/BlueBusIcon.svg?react';
+import BothArrow from '@assets/svg/BothArrow.svg?react';
 import useGetDirection from '@hooks/useGetDirection';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-function BusInfoItem({ busRouteId, arrmsg1, arrmsg2, rtNm, exps1, exps2 }) {
+
+function BusInfoItem({ busRouteId, rtNm, exps1, exps2 }) {
   const { direction } = useGetDirection(busRouteId);
+  const [left1, setLeft1] = useState(exps1);
+  const [left2, setLeft2] = useState(exps2);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLeft1((prev) => (prev > 0 ? prev - 1 : 0));
+      setLeft2((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    if (minutes <= 0) {
+      return '곧 도착';
+    } else if (minutes >= 10 || seconds === 0) {
+      return `${minutes}분`;
+    } else if (minutes < 10 && minutes > 0) {
+      return `${minutes}분 ${secs}초`;
+    }
+  };
+
   return (
     <Wrapper>
       <BusInfoWrapper>
@@ -12,27 +39,24 @@ function BusInfoItem({ busRouteId, arrmsg1, arrmsg2, rtNm, exps1, exps2 }) {
         <BusInfo>
           <BusDetails>
             <BusNumber>{rtNm}</BusNumber>
-            {/* <BusDirection>{busDirection}</BusDirection> */}
           </BusDetails>
           <RouteDetails>
-            {/* <Loc>{loc}</Loc> */}
             <Route>
               {direction.from}
-              {' <-> '}
+              <BothArrow />
               {direction.to}
             </Route>
           </RouteDetails>
           <ArrivalDetails>
-            <ArrivalMessage>{arrmsg1}</ArrivalMessage>
-            <StopsLeft>{exps1}</StopsLeft>
-            <ArrivalMessage>{arrmsg2}</ArrivalMessage>
-            <StopsLeft>{exps2}</StopsLeft>
+            <ArrivalMessage>{formatTime(left1)}</ArrivalMessage>
+            <ArrivalMessage>{formatTime(left2)}</ArrivalMessage>
           </ArrivalDetails>
         </BusInfo>
       </BusInfoWrapper>
     </Wrapper>
   );
 }
+
 const Wrapper = styled.div`
   width: 100%;
   height: 110px;
@@ -104,9 +128,13 @@ const BusDirection = styled.div`
   display: flex;
   align-items: flex-end;
 `;
-const Loc = styled.div``;
-const Route = styled.div``;
+const Route = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+`;
 const ArrivalMessage = styled.div`
+  white-space: nowrap;
   color: #f35252;
 `;
 const StopsLeft = styled.div`
