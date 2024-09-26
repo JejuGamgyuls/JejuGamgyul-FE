@@ -1,7 +1,8 @@
 import { navigationBarState, scrollByDirectionState } from '@atoms/NavigationBarState';
 import { CATEGORY } from '@constants/const';
 import BusDetailInfo from '@pages/busFindpage/components';
-import BusStopInfo from '@pages/busStopFindPage/components';
+import BusStopFind from '@pages/busStopFindPage/components';
+import BusStopInfo from '@pages/busStopPage/components';
 import Favorites from '@pages/FavoritesPage/components';
 import BusStopsAround from '@pages/mainpage/components';
 import { useEffect, useRef, useState } from 'react';
@@ -17,6 +18,7 @@ const SIDE_BAR_MAP = {
   [CATEGORY.MYINFO]: () => <div>내 정보</div>,
   [CATEGORY.BUSDETAILINFO]: () => <BusDetailInfo />,
   [CATEGORY.BUSSTOPINFO]: (busStopId) => <BusStopInfo busStopId={busStopId.busStopId} />,
+  [CATEGORY.BUSSTOPFIND]: () => <BusStopFind />,
 };
 
 function SideBar() {
@@ -60,7 +62,6 @@ function SideBar() {
 
   const Component = SIDE_BAR_MAP[category];
   const busStopId = new URLSearchParams(window.location.search).get('busStopId');
-
   return (
     <S.Wrapper>
       {category !== CATEGORY.FAVORITE && <FindBusInput />}

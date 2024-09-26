@@ -4,9 +4,9 @@ import NaverMapContainer from '@pages/mainpage/NaverMapContainer';
 import { NavermapsProvider } from 'react-naver-maps';
 
 import * as S from '../mainpage/styles';
-
-function BusStopFindPage() {
+function BusStopPage() {
   const naverMapClientId = import.meta.env.VITE_NAVER_MAP_CLIENT_ID;
+
   return (
     <div>
       <S.SideWrapper>
@@ -20,4 +20,4 @@ function BusStopFindPage() {
   );
 }
 
-export default BusStopFindPage;
+export default BusStopPage;
