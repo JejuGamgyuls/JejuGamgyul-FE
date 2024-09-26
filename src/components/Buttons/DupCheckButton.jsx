@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-function DupCheckButton() {
-  return <StyledButton>중복확인</StyledButton>;
+function DupCheckButton({ check }) {
+  return <StyledButton onClick={check}>중복확인</StyledButton>;
 }
 const StyledButton = styled.button`
   min-width: 100px;
