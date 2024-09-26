@@ -13,6 +13,7 @@ function SignUpPage() {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [idMsg, setIdMsg] = useState('');
+  const [IdCheckMsg, setIdCheckMsg] = useState('');
   const [pwdMsg, setPwdMsg] = useState('');
   const [emailMsg, setEmailMsg] = useState('');
   const [emailCheckMsg, setEmailCheckMsg] = useState('');
@@ -34,6 +35,18 @@ function SignUpPage() {
       });
   };
 
+  const checkId = () => {
+    axios.post('http://localhost:8080/api/auth/check-id', { userId }).then((res) => {
+      console.log(res);
+      console.log(typeof userId);
+      if (res.data.result) {
+        setIdCheckMsg(<span style={{ color: '#FD825B' }}>* 사용 가능한 아이디입니다</span>);
+      } else {
+        setIdCheckMsg(<span style={{ color: '#F35252' }}>* 이미 가입한 아이디입니다</span>);
+      }
+    });
+    setIdMsg('');
+  };
   const checkEmail = () => {
     axios.post('http://localhost:8080/api/auth/check-email', { email }).then((res) => {
       if (res.data.result) {
@@ -52,7 +65,7 @@ function SignUpPage() {
     if (!userId) {
       setIdMsg('');
     } else if (idPattern.test(userId)) {
-      setIdMsg(<span style={{ color: '#FD825B' }}>* 사용 가능한 아이디입니다</span>);
+      setIdMsg(<span style={{ color: '#FD825B' }}>* 올바른 아이디 형식입니다</span>);
     } else {
       setIdMsg(
         <span style={{ color: '#F35252' }}>* 영문, 숫자를 포함한 6자 이상이어야 합니다</span>,
@@ -94,12 +107,18 @@ function SignUpPage() {
             <S.InputTitle>아이디</S.InputTitle>
             <Input
               placeholder="아이디를 입력해주세요"
-              onChange={(e) => setUserId(e.target.value)}
+              onChange={(e) => {
+                setUserId(e.target.value);
+                setIdCheckMsg('');
+              }}
             />
-            <DupCheckButton />
+            <DupCheckButton check={checkId} />
           </S.InputContainer>
           <S.MessageWrapper>
-            <S.Message>{idMsg}</S.Message>
+            <S.Message>
+              <div>{idMsg}</div>
+              <div>{IdCheckMsg}</div>
+            </S.Message>
           </S.MessageWrapper>
           <S.InputContainer>
             <S.InputTitle>비밀번호</S.InputTitle>
@@ -138,7 +157,7 @@ function SignUpPage() {
                 setEmailCheckMsg('');
               }}
             />
-            <DupCheckButton checkEmail={checkEmail} />
+            <DupCheckButton check={checkEmail} />
           </S.InputContainer>
           <S.MessageWrapper>
             <S.Message>
