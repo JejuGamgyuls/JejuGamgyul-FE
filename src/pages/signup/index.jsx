@@ -2,10 +2,10 @@ import DupCheckButton from '@components/Buttons/DupCheckButton';
 import SubmitButton from '@components/Buttons/SubmitButton';
 import Input from '@components/Input';
 import { ROUTE } from '@constants/route';
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { handleSignUp, checkId, checkEmail } from './apis/getUserInfo';
 import * as S from './styles';
 
 function SignUpPage() {
@@ -20,8 +20,8 @@ function SignUpPage() {
   const [emailMsg, setEmailMsg] = useState('');
   const [emailCheckMsg, setEmailCheckMsg] = useState('');
 
-  const [isIdValid, setIsIdValid] = useState(false); // Track if ID duplication check passed
-  const [isEmailValid, setIsEmailValid] = useState(false); // Track if email duplication check passed
+  const [isIdValid, setIsIdValid] = useState(false);
+  const [isEmailValid, setIsEmailValid] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
 
   const navigate = useNavigate();
@@ -31,47 +31,6 @@ function SignUpPage() {
     userId,
     pwd,
     name,
-  };
-
-  const handleSignUp = () => {
-    if (isFormValid) {
-      axios
-        .post('http://localhost:8080/api/auth/signUp', data)
-        .then((res) => {
-          console.log(res);
-          navigate(ROUTE.LOGIN);
-        })
-        .catch((err) => {
-          console.log(`${err} :: 회원가입 실패`);
-        });
-    } else {
-      alert('모든 정보를 입력하고 중복 확인 후 회원가입이 가능합니다.');
-    }
-  };
-
-  const checkId = () => {
-    axios.post('http://localhost:8080/api/auth/check-id', { userId }).then((res) => {
-      if (res.data.result) {
-        setIsIdValid(true);
-        setIdCheckMsg(<span style={{ color: '#FD825B' }}>* 사용 가능한 아이디입니다</span>);
-      } else {
-        setIsIdValid(false);
-        setIdCheckMsg(<span style={{ color: '#F35252' }}>* 이미 가입한 아이디입니다</span>);
-      }
-    });
-    setIdMsg('');
-  };
-  const checkEmail = () => {
-    axios.post('http://localhost:8080/api/auth/check-email', { email }).then((res) => {
-      if (res.data.result) {
-        setIsEmailValid(true);
-        setEmailCheckMsg(<span style={{ color: '#FD825B' }}>* 사용 가능한 이메일 주소입니다</span>);
-      } else {
-        setIsEmailValid(false);
-        setEmailCheckMsg(<span style={{ color: '#F35252' }}>* 이미 가입한 이메일 주소입니다</span>);
-      }
-    });
-    setEmailMsg('');
   };
 
   // id 유효성 검사
@@ -137,7 +96,7 @@ function SignUpPage() {
                 setIdCheckMsg('');
               }}
             />
-            <DupCheckButton check={checkId} />
+            <DupCheckButton check={() => checkId(userId, setIsIdValid, setIdCheckMsg, setIdMsg)} />
           </S.InputContainer>
           <S.MessageWrapper>
             <S.Message>
@@ -182,7 +141,9 @@ function SignUpPage() {
                 setEmailCheckMsg('');
               }}
             />
-            <DupCheckButton check={checkEmail} />
+            <DupCheckButton
+              check={() => checkEmail(email, setIsEmailValid, setEmailCheckMsg, setEmailMsg)}
+            />
           </S.InputContainer>
           <S.MessageWrapper>
             <S.Message>
@@ -191,7 +152,10 @@ function SignUpPage() {
             </S.Message>
           </S.MessageWrapper>
           <S.ButtonWrapper>
-            <SubmitButton text="가입하기" handleSignUp={handleSignUp} />
+            <SubmitButton
+              text="가입하기"
+              handleSignUp={() => handleSignUp(data, isFormValid, navigate)}
+            />
           </S.ButtonWrapper>
         </S.InputsWrapper>
       </S.Body>
