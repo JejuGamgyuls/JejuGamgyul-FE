@@ -20,7 +20,7 @@ function FindBusInput() {
     } else {
       const stopRoute = ROUTE.BUSSTOPFIND.replace(':busStopName', inputValue); // 정류장 검색
       navigate(stopRoute);
-      setCategory(CATEGORY.BUSSTOPINFO);
+      setCategory(CATEGORY.BUSSTOPFIND);
     }
   };
 

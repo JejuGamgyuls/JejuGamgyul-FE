@@ -1,6 +1,6 @@
 import BlueBusIcon from '@assets/svg/BlueBusIcon.svg?react';
 import FavoriteIcon from '@assets/svg/FavoriteIcon.svg?react';
-import { navigationBarState } from '@atoms/navigationBarState';
+import { navigationBarState } from '@atoms/NavigationBarState';
 import { CATEGORY, STYLE } from '@constants/const';
 import { ROUTE } from '@constants/route';
 import { useNavigate } from 'react-router-dom';
