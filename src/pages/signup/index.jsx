@@ -1,6 +1,7 @@
 import DupCheckButton from '@components/Buttons/DupCheckButton';
 import SubmitButton from '@components/Buttons/SubmitButton';
 import Input from '@components/Input';
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 import * as S from './styles';
@@ -8,11 +9,29 @@ import * as S from './styles';
 function SignUpPage() {
   const [userId, setUserId] = useState('');
   const [pwd, setPwd] = useState('');
-  const [confirmPwd, setConfirmPwd] = useState('');
+  const [pwdCheck, setPwdCheck] = useState('');
   const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
   const [idMsg, setIdMsg] = useState('');
   const [pwdMsg, setPwdMsg] = useState('');
   const [emailMsg, setEmailMsg] = useState('');
+  const data = {
+    email,
+    userId,
+    pwd,
+    name,
+  };
+
+  const handleSignUp = () => {
+    axios
+      .post('http://localhost:8080/api/auth/signUp', data)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(`${err} :: 회원가입 실패`);
+      });
+  };
 
   // id 유효성 검사
   useEffect(() => {
@@ -31,14 +50,14 @@ function SignUpPage() {
 
   // 비밀번호 유효성 검사
   useEffect(() => {
-    if (confirmPwd && pwd !== confirmPwd) {
+    if (pwdCheck && pwd !== pwdCheck) {
       setPwdMsg(<span style={{ color: '#F35252' }}>* 비밀번호가 일치하지 않습니다</span>);
-    } else if (confirmPwd && pwd === confirmPwd) {
+    } else if (pwdCheck && pwd === pwdCheck) {
       setPwdMsg(<span style={{ color: '#FD825B' }}>* 비밀번호가 일치합니다</span>);
     } else {
       setPwdMsg('');
     }
-  }, [pwd, confirmPwd]);
+  }, [pwd, pwdCheck]);
 
   // 이메일 유효성 검사
   useEffect(() => {
@@ -52,7 +71,6 @@ function SignUpPage() {
       setEmailMsg(<span style={{ color: '#F35252' }}>* 이메일 형식이 잘못되었습니다</span>);
     }
   }, [email]);
-
   return (
     <S.Wrapper>
       <S.Header>
@@ -86,7 +104,7 @@ function SignUpPage() {
             <Input
               type="password"
               placeholder="비밀번호를 한 번 더 입력해주세요"
-              onChange={(e) => setConfirmPwd(e.target.value)}
+              onChange={(e) => setPwdCheck(e.target.value)}
             />
             <S.EmptyButtonSpace />
           </S.InputContainer>
@@ -95,7 +113,7 @@ function SignUpPage() {
           </S.MessageWrapper>
           <S.InputContainer>
             <S.InputTitle>이름</S.InputTitle>
-            <Input placeholder="이름을 입력해주세요" />
+            <Input placeholder="이름을 입력해주세요" onChange={(e) => setName(e.target.value)} />
             <S.EmptyButtonSpace />
           </S.InputContainer>
           <S.MessageWrapper />
@@ -108,7 +126,7 @@ function SignUpPage() {
             <S.Message>{emailMsg}</S.Message>
           </S.MessageWrapper>
           <S.ButtonWrapper>
-            <SubmitButton text="가입하기" />
+            <SubmitButton text="가입하기" handleSignUp={handleSignUp} />
           </S.ButtonWrapper>
         </S.InputsWrapper>
       </S.Body>
