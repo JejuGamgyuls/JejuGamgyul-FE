@@ -21,6 +21,7 @@ function LoginPage() {
 
       if (res.status === 202) {
         alert('로그인 성공');
+        localStorage.setItem('token', res.data.jwt);
         window.location.href = '/';
       }
     } catch (e) {
