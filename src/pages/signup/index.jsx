@@ -1,8 +1,10 @@
 import DupCheckButton from '@components/Buttons/DupCheckButton';
 import SubmitButton from '@components/Buttons/SubmitButton';
 import Input from '@components/Input';
+import { ROUTE } from '@constants/route';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import * as S from './styles';
 
@@ -17,6 +19,13 @@ function SignUpPage() {
   const [pwdMsg, setPwdMsg] = useState('');
   const [emailMsg, setEmailMsg] = useState('');
   const [emailCheckMsg, setEmailCheckMsg] = useState('');
+
+  const [isIdValid, setIsIdValid] = useState(false); // Track if ID duplication check passed
+  const [isEmailValid, setIsEmailValid] = useState(false); // Track if email duplication check passed
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  const navigate = useNavigate();
+
   const data = {
     email,
     userId,
@@ -25,23 +34,28 @@ function SignUpPage() {
   };
 
   const handleSignUp = () => {
-    axios
-      .post('http://localhost:8080/api/auth/signUp', data)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(`${err} :: 회원가입 실패`);
-      });
+    if (isFormValid) {
+      axios
+        .post('http://localhost:8080/api/auth/signUp', data)
+        .then((res) => {
+          console.log(res);
+          navigate(ROUTE.LOGIN);
+        })
+        .catch((err) => {
+          console.log(`${err} :: 회원가입 실패`);
+        });
+    } else {
+      alert('모든 정보를 입력하고 중복 확인 후 회원가입이 가능합니다.');
+    }
   };
 
   const checkId = () => {
     axios.post('http://localhost:8080/api/auth/check-id', { userId }).then((res) => {
-      console.log(res);
-      console.log(typeof userId);
       if (res.data.result) {
+        setIsIdValid(true);
         setIdCheckMsg(<span style={{ color: '#FD825B' }}>* 사용 가능한 아이디입니다</span>);
       } else {
+        setIsIdValid(false);
         setIdCheckMsg(<span style={{ color: '#F35252' }}>* 이미 가입한 아이디입니다</span>);
       }
     });
@@ -50,8 +64,10 @@ function SignUpPage() {
   const checkEmail = () => {
     axios.post('http://localhost:8080/api/auth/check-email', { email }).then((res) => {
       if (res.data.result) {
+        setIsEmailValid(true);
         setEmailCheckMsg(<span style={{ color: '#FD825B' }}>* 사용 가능한 이메일 주소입니다</span>);
       } else {
+        setIsEmailValid(false);
         setEmailCheckMsg(<span style={{ color: '#F35252' }}>* 이미 가입한 이메일 주소입니다</span>);
       }
     });
@@ -96,6 +112,15 @@ function SignUpPage() {
       setEmailMsg(<span style={{ color: '#F35252' }}>* 이메일 형식이 잘못되었습니다</span>);
     }
   }, [email]);
+
+  useEffect(() => {
+    if (userId && pwd && pwdCheck && email && name && isIdValid && isEmailValid) {
+      setIsFormValid(true);
+    } else {
+      setIsFormValid(false);
+    }
+  }, [userId, pwd, pwdCheck, email, name, isIdValid, isEmailValid]);
+
   return (
     <S.Wrapper>
       <S.Header>
