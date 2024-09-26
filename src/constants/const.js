@@ -5,6 +5,7 @@ export const CATEGORY = {
   MYINFO: 'MYINFO',
   BUSDETAILINFO: 'BUSDETAILINFO',
   BUSSTOPINFO: 'BUSSTOPINFO',
+  BUSSTOPFIND: 'BUSSTOPFIND',
 };
 
 export const geolocationOptions = {

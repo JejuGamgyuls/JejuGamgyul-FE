@@ -1,8 +1,7 @@
 import FindIcon from '@assets/svg/SearchIcon.svg?react';
-import { navigationBarState } from '@atoms/navigationBarState';
+import { navigationBarState } from '@atoms/NavigationBarState';
 import { CATEGORY } from '@constants/const';
 import { ROUTE } from '@constants/route';
-import axios from 'axios';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
@@ -19,7 +18,7 @@ function FindBusInput() {
       navigate(busRoute);
       setCategory(CATEGORY.BUSDETAILINFO);
     } else {
-      const stopRoute = ROUTE.BUSSTOP.replace(':busStop', inputValue); // 정류장 검색
+      const stopRoute = ROUTE.BUSSTOPFIND.replace(':busStopName', inputValue); // 정류장 검색
       navigate(stopRoute);
       setCategory(CATEGORY.BUSSTOPINFO);
     }

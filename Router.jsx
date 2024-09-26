@@ -1,6 +1,7 @@
 import { ROUTE } from '@constants/route';
 import BusFindPage from '@pages/busFindpage';
-import BusStopFindPage from '@pages/busStopPage';
+import BusStopFindPage from '@pages/busStopFindPage';
+import BusStopPage from '@pages/busStopPage';
 import FavoritesPage from '@pages/FavoritesPage';
 import LoginPage from '@pages/login';
 import Mainpage from '@pages/mainpage';
@@ -16,8 +17,9 @@ export const Router = () => {
         <Route path={ROUTE.SIGNUP} element={<SignUpPage />} />
         <Route path={ROUTE.LOGIN} element={<LoginPage />} />
         <Route path={ROUTE.BUSFIND} element={<BusFindPage />} />
-        <Route path={ROUTE.BUSSTOP} element={<BusStopFindPage />} />
+        <Route path={ROUTE.BUSSTOP} element={<BusStopPage />} />
         <Route path={ROUTE.FAVORITE} element={<FavoritesPage />} />
+        <Route path={ROUTE.BUSSTOPFIND} element={<BusStopFindPage />} />
       </Routes>
     </Suspense>
   );
