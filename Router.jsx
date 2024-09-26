@@ -1,6 +1,6 @@
 import { ROUTE } from '@constants/route';
 import BusFindPage from '@pages/busFindpage';
-import BusStopFindPage from '@pages/busStopFindPage';
+import BusStopFindPage from '@pages/busStopPage';
 import FavoritesPage from '@pages/FavoritesPage';
 import LoginPage from '@pages/login';
 import Mainpage from '@pages/mainpage';

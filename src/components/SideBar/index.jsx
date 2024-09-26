@@ -1,7 +1,7 @@
 import { navigationBarState, scrollByDirectionState } from '@atoms/NavigationBarState';
 import { CATEGORY } from '@constants/const';
 import BusDetailInfo from '@pages/busFindpage/components';
-import BusStopInfo from '@pages/busStopFindPage/components';
+import BusStopInfo from '@pages/busStopPage/components';
 import Favorites from '@pages/FavoritesPage/components';
 import BusStopsAround from '@pages/mainpage/components';
 import { useEffect, useRef, useState } from 'react';
