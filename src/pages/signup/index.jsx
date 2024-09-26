@@ -15,6 +15,7 @@ function SignUpPage() {
   const [idMsg, setIdMsg] = useState('');
   const [pwdMsg, setPwdMsg] = useState('');
   const [emailMsg, setEmailMsg] = useState('');
+  const [emailCheckMsg, setEmailCheckMsg] = useState('');
   const data = {
     email,
     userId,
@@ -31,6 +32,17 @@ function SignUpPage() {
       .catch((err) => {
         console.log(`${err} :: 회원가입 실패`);
       });
+  };
+
+  const checkEmail = () => {
+    axios.post('http://localhost:8080/api/auth/check-email', { email }).then((res) => {
+      if (res.data.result) {
+        setEmailCheckMsg(<span style={{ color: '#FD825B' }}>* 사용 가능한 이메일 주소입니다</span>);
+      } else {
+        setEmailCheckMsg(<span style={{ color: '#F35252' }}>* 이미 가입한 이메일 주소입니다</span>);
+      }
+    });
+    setEmailMsg('');
   };
 
   // id 유효성 검사
@@ -119,11 +131,20 @@ function SignUpPage() {
           <S.MessageWrapper />
           <S.InputContainer>
             <S.InputTitle>이메일</S.InputTitle>
-            <Input placeholder="Gamkyul@example.com" onChange={(e) => setEmail(e.target.value)} />
-            <DupCheckButton />
+            <Input
+              placeholder="Gamkyul@example.com"
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setEmailCheckMsg('');
+              }}
+            />
+            <DupCheckButton checkEmail={checkEmail} />
           </S.InputContainer>
           <S.MessageWrapper>
-            <S.Message>{emailMsg}</S.Message>
+            <S.Message>
+              <div>{emailMsg}</div>
+              <div>{emailCheckMsg}</div>
+            </S.Message>
           </S.MessageWrapper>
           <S.ButtonWrapper>
             <SubmitButton text="가입하기" handleSignUp={handleSignUp} />
