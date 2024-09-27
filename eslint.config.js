@@ -34,6 +34,7 @@ export default [
       'react/prop-types': 'off',
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       'no-unused-vars': ['warn'],
+      '@tanstack/query/exhaustive-deps': 'error',
       // import 순서 강제
       'import/order': [
         'error',
