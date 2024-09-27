@@ -1,13 +1,20 @@
 import BlueBusIcon from '@assets/svg/BlueBusIcon.svg?react';
 import BothArrow from '@assets/svg/BothArrow.svg?react';
+import FavoriteIcon from '@assets/svg/FavoriteIcon.svg?react';
+import FilledStarIcon from '@assets/svg/FilledStarIcon.svg?react';
 import useGetDirection from '@hooks/useGetDirection';
+import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 function BusInfoItem({ busRouteId, rtNm, exps1, exps2 }) {
   const { direction } = useGetDirection(busRouteId);
   const [left1, setLeft1] = useState(exps1);
   const [left2, setLeft2] = useState(exps2);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const { busStopName } = useParams();
+  const busStopId = new URLSearchParams(window.location.search).get('busStopId');
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -30,6 +37,68 @@ function BusInfoItem({ busRouteId, rtNm, exps1, exps2 }) {
     }
   };
 
+  const handleAddFavorite = async () => {
+    try {
+      const res = await axios.post(
+        'http://localhost:8080/favorites/add',
+        {
+          busStopId: busStopId,
+          busStopName: busStopName,
+          routeName: rtNm,
+          routeId: busRouteId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        },
+      );
+      if (res.status === 201) {
+        alert('즐겨찾기에 추가되었습니다.');
+        handleGetFavorites();
+      }
+    } catch (e) {
+      throw new Error(e);
+    }
+  };
+
+  const handleGetFavorites = async () => {
+    try {
+      const res = await axios.get('http://localhost:8080/favorites/getByUserToken', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+
+      setIsFavorite(res.data.some((item) => item.routeId === busRouteId));
+    } catch (e) {
+      throw new Error(e);
+    }
+  };
+
+  useEffect(() => {
+    handleGetFavorites();
+  }, []);
+
+  const handleCancelFavorite = async () => {
+    try {
+      const res = await axios.delete('http://localhost:8080/favorites/delete', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        params: {
+          busStopId: busStopId,
+          routeid: busRouteId,
+        },
+      });
+      if (res.status === 200) {
+        alert('즐겨찾기에서 삭제되었습니다.');
+        handleGetFavorites();
+      }
+    } catch (e) {
+      throw new Error(e);
+    }
+  };
   return (
     <Wrapper>
       <BusInfoWrapper>
@@ -39,6 +108,15 @@ function BusInfoItem({ busRouteId, rtNm, exps1, exps2 }) {
         <BusInfo>
           <BusDetails>
             <BusNumber>{rtNm}</BusNumber>
+            {isFavorite ? (
+              <IconWrapper onClick={handleCancelFavorite}>
+                <FilledStarIcon style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
+              </IconWrapper>
+            ) : (
+              <IconWrapper onClick={handleAddFavorite}>
+                <FavoriteIcon style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
+              </IconWrapper>
+            )}
           </BusDetails>
           <RouteDetails>
             <Route>
@@ -72,7 +150,7 @@ const BusInfoWrapper = styled.div`
   gap: 22px;
 `;
 const IconWrapper = styled.div`
-  width: 29px;
+  width: 12px;
 `;
 const BusInfo = styled.div`
   width: 304px;
@@ -82,6 +160,8 @@ const BusDetails = styled.div`
   height: 25px;
   display: flex;
   gap: 22px;
+  justify-content: space-between;
+  align-items: center;
 `;
 const RouteDetails = styled.div`
   width: 100%;

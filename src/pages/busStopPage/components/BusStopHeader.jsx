@@ -36,7 +36,6 @@ function BusStopHeader({ reloadTime }) {
           </BusStopName>
           <IconWrapper>
             <LocationIcon style={{ width: '24px', height: '24px' }} />
-            <FavoriteIcon style={{ width: '24px', height: '24px', cursor: 'pointer' }} />
           </IconWrapper>
         </BusStopInfo>
         <ReloadZone>
