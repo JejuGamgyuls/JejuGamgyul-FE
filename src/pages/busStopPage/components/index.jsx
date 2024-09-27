@@ -7,6 +7,7 @@ import { getLowArrInfoByStId } from '../api';
 function BusStopInfo({ busStopId }) {
   const [busInfoList, setBusInfoList] = useState([]);
   const [reloadTime, setReloadTime] = useState(new Date());
+
   const fetchBusInfo = async () => {
     try {
       const busData = await getLowArrInfoByStId(busStopId); // 예시 stId 사용

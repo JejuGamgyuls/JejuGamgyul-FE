@@ -1,5 +1,4 @@
 import ChevronLeft from '@assets/svg/ChevronLeft.svg?react';
-import FavoriteIcon from '@assets/svg/FavoriteIcon.svg?react';
 import LocationIcon from '@assets/svg/LocationIcon.svg?react';
 import ReloadIcon from '@assets/svg/ReloadIcon.svg?react';
 import dayjs from 'dayjs';
@@ -13,7 +12,7 @@ import convertTo12HourFormat from '../utils/convertTo12HourFormat';
 
 dayjs.locale('ko');
 function BusStopHeader({ reloadTime }) {
-  const { busStop } = useParams();
+  const { busStopName } = useParams();
   const [shouldRotate, setShouldRotate] = useState(false);
   const formatedTime = convertTo12HourFormat({
     hours: dayjs(reloadTime.toISOString()).hour(),
@@ -32,7 +31,7 @@ function BusStopHeader({ reloadTime }) {
       <InfoWrapper>
         <BusStopInfo>
           <BusStopName>
-            <ChevronLeft style={{ width: '16px', height: '16px' }} /> {busStop}
+            <ChevronLeft style={{ width: '16px', height: '16px' }} /> {busStopName}
           </BusStopName>
           <IconWrapper>
             <LocationIcon style={{ width: '24px', height: '24px' }} />
