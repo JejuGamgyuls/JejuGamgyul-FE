@@ -1,7 +1,6 @@
 import DupCheckButton from '@components/Buttons/DupCheckButton';
 import SubmitButton from '@components/Buttons/SubmitButton';
 import Input from '@components/Input';
-import { ROUTE } from '@constants/route';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -154,7 +153,7 @@ function SignUpPage() {
           <S.ButtonWrapper>
             <SubmitButton
               text="가입하기"
-              handleSignUp={() => handleSignUp(data, isFormValid, navigate)}
+              handleClick={() => handleSignUp(data, isFormValid, navigate)}
             />
           </S.ButtonWrapper>
         </S.InputsWrapper>
