@@ -1,16 +1,16 @@
 import BlueBusIcon from '@assets/svg/BlueBusIcon.svg?react';
-import FavoriteIcon from '@assets/svg/FavoriteIcon.svg?react';
 import { navigationBarState } from '@atoms/NavigationBarState';
 import { CATEGORY, STYLE } from '@constants/const';
 import { ROUTE } from '@constants/route';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
+
 function BusStopItem({ busStopName, busStopNumber, busDirection, busStopId }) {
   const navigate = useNavigate();
   const [, setCategory] = useRecoilState(navigationBarState);
   const navToBusStop = (busStopId) => {
-    const stopRoute = ROUTE.BUSSTOP.replace(':busStop', busStopName); // 정류장 검색
+    const stopRoute = ROUTE.BUSSTOP.replace(':busStopName', busStopName); // 정류장 검색
     setCategory(CATEGORY.BUSSTOPINFO);
     navigate(stopRoute + '?busStopId=' + busStopId);
   };
@@ -26,9 +26,6 @@ function BusStopItem({ busStopName, busStopNumber, busDirection, busStopId }) {
           <BusDirection> {busDirection}</BusDirection>
         </BusStopInfo>
       </BusItemWrapper>
-      <IconWrapper>
-        <FavoriteIcon width={20} height={20} fill="black" />
-      </IconWrapper>
     </Wrapper>
   );
 }
