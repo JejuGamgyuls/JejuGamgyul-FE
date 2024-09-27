@@ -23,9 +23,14 @@ const Map = () => {
   <path d="M25.7076 24.2924C25.8005 24.3854 25.8742 24.4957 25.9245 24.6171C25.9747 24.7384 26.0006 24.8686 26.0006 24.9999C26.0006 25.1313 25.9747 25.2614 25.9245 25.3828C25.8742 25.5042 25.8005 25.6145 25.7076 25.7074C25.6147 25.8004 25.5044 25.8741 25.383 25.9243C25.2616 25.9746 25.1315 26.0005 25.0001 26.0005C24.8687 26.0005 24.7386 25.9746 24.6172 25.9243C24.4958 25.8741 24.3855 25.8004 24.2926 25.7074L16.0001 17.4137L7.70757 25.7074C7.51993 25.8951 7.26543 26.0005 7.00007 26.0005C6.7347 26.0005 6.48021 25.8951 6.29257 25.7074C6.10493 25.5198 5.99951 25.2653 5.99951 24.9999C5.99951 24.7346 6.10493 24.4801 6.29257 24.2924L14.5863 15.9999L6.29257 7.70745C6.10493 7.5198 5.99951 7.26531 5.99951 6.99995C5.99951 6.73458 6.10493 6.48009 6.29257 6.29245C6.48021 6.1048 6.7347 5.99939 7.00007 5.99939C7.26543 5.99939 7.51993 6.1048 7.70757 6.29245L16.0001 14.5862L24.2926 6.29245C24.4802 6.10481 24.7347 5.99939 25.0001 5.99939C25.2654 5.99939 25.5199 6.1048 25.7076 6.29245C25.8952 6.48009 26.0006 6.73458 26.0006 6.99995C26.0006 7.26531 25.8952 7.5198 25.7076 7.70745L17.4138 15.9999L25.7076 24.2924Z" fill="black" fill-opacity="0.6"/>
   </svg>`;
   const infoWindows = filtered_stops.map((stop, index) => {
+    const stationName = stop.stopsNm;
+    const busStopId = stop.nodeId;
+
     return new navermaps.InfoWindow({
       content: `
-        <div style="width:380px; padding: 17px 20px; background-color: #fff; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 4px; width: 330px; box-sizing: border-box;">
+        <div style="cursor:pointer; width:380px; padding: 17px 20px; background-color: #fff; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; border-radius: 4px; width: 330px; box-sizing: border-box;" onclick="window.location.href='http://localhost:3000/station/${encodeURIComponent(
+          stationName,
+        )}?busStopId=${busStopId}'">
         <div style="width:280px; margin:0 auto; display: flex; flex-direction: column;">
           <div style="display: flex; justify-content: space-between; font-size: 17px; font-weight: bold; color:#000">
             <div>
@@ -51,8 +56,8 @@ const Map = () => {
     });
   });
 
-  // Add an event listener after opening the InfoWindow
   const handleMarkerClick = (index) => {
+    console.log(filtered_stops[index]);
     if (selectedStopIndex !== null && selectedStopIndex !== index) {
       infoWindows[selectedStopIndex].close();
     }
@@ -86,7 +91,7 @@ const Map = () => {
           key={stop.stopsNo}
           position={{ lat: parseFloat(stop.ycrd), lng: parseFloat(stop.xcrd) }}
           title={stop.stops_nm}
-          onClick={() => handleMarkerClick(index)} // 여기에서 사용됨
+          onClick={() => handleMarkerClick(index)}
         />
       ))}
     </NaverMap>
