@@ -93,13 +93,11 @@ function Favorites() {
    * @property {string} routeName
    * @property {string} userId
    */
-  const [busData, setBusData] = useState([]);
   const refreshFavoritBusInfo = async () => {
     try {
       setBusInfoList([]);
       setIsLoading(true);
       const data = await busApi.getAllFavorites();
-      setBusData(data);
       await Promise.all(
         data.map(async ({ busStopId, routeId }) => {
           const busData = await busApi.getLowArrInfoByStId(busStopId);
@@ -140,14 +138,15 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 390px;
-  background-color: var(--Gray01, #fafafa);
+  background-color: var(--Gray01, #fff);
 `;
 const BodyWrapper = styled.div`
-  margin-top: 100px;
+  background-color: var(--Gray01, fff);
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  height: 100%;
   width: 390px;
+  height: calc(100vh - 120px);
   overflow-y: auto;
 `;

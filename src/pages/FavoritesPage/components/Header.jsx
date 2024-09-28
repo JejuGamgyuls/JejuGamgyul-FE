@@ -34,9 +34,12 @@ function Header() {
 const Wrapper = styled.div`
   position: absolute;
   top: 0;
-  background-color: var(--Gray01, red);
-  width: 100%;
+  background-color: var(--Gray01, white);
+  width: 390px;
   z-index: 1;
+  padding: 20px;
+  box-sizing: border-box;
+  height: 120px;
 `;
 const TitleWrapper = styled.div`
   height: 52px;
@@ -52,7 +55,7 @@ const Title = styled.div`
   line-height: normal;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
 `;
 const CountsWrapper = styled.div`
   height: 45px;

@@ -1,4 +1,3 @@
-import { STYLE } from '@constants/const';
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
