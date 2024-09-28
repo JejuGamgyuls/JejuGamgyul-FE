@@ -11,7 +11,7 @@ import 'dayjs/locale/ko';
 import convertTo12HourFormat from '../utils/convertTo12HourFormat';
 
 dayjs.locale('ko');
-function BusStopHeader({ reloadTime }) {
+function BusStopHeader({ reloadTime, soonArrivalBus }) {
   const { busStopName } = useParams();
   const [shouldRotate, setShouldRotate] = useState(false);
   const formatedTime = convertTo12HourFormat({
@@ -45,7 +45,11 @@ function BusStopHeader({ reloadTime }) {
         </ReloadZone>
         <BusArrivalInfo>
           <ArrivalInfo>곧 도착</ArrivalInfo>
-          <BusNumber>333</BusNumber>
+          {soonArrivalBus.length > 0 ? (
+            soonArrivalBus.map((busNumber) => <BusNumber key={busNumber}>{busNumber}</BusNumber>)
+          ) : (
+            <BusNumber>없음</BusNumber>
+          )}
         </BusArrivalInfo>
       </InfoWrapper>
     </Wrapper>
