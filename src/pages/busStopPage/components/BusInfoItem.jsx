@@ -14,6 +14,7 @@ function BusInfoItem({ arrmsg1, busRouteId, rtNm, exps1, exps2 }) {
   const { direction } = useGetDirection(busRouteId);
   const [left1, setLeft1] = useState(exps1);
   const [left2, setLeft2] = useState(exps2);
+
   const [isFavorite, setIsFavorite] = useState(false);
   const { busStopName } = useParams();
   const busStopId = new URLSearchParams(window.location.search).get('busStopId');
@@ -108,7 +109,7 @@ function BusInfoItem({ arrmsg1, busRouteId, rtNm, exps1, exps2 }) {
             )}
           </BusDetails>
           <RouteDetails>
-            {direction && (
+            {direction.from.length > 0 && (
               <Route>
                 {direction.from}
                 <BothArrow />
@@ -118,6 +119,8 @@ function BusInfoItem({ arrmsg1, busRouteId, rtNm, exps1, exps2 }) {
           </RouteDetails>
           <ArrivalDetails>
             {arrmsg1 === '운행종료' ? (
+              <ArrivalMessage>{arrmsg1}</ArrivalMessage>
+            ) : arrmsg1 === '출발대기' ? (
               <ArrivalMessage>{arrmsg1}</ArrivalMessage>
             ) : (
               <ArrivalDetails>
