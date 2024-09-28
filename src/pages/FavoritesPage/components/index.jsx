@@ -8,7 +8,7 @@ import Header from './Header';
 function Favorites() {
   const [isLoading, setIsLoading] = useState(true);
   const [reloadTime, setReloadTime] = useState(new Date());
-
+  const [favBusCnt, setFavBusCnt] = useState(0);
   const [busInfoList, setBusInfoList] = useState([]);
 
   const refreshFavoritBusInfo = async () => {
@@ -16,6 +16,7 @@ function Favorites() {
       setBusInfoList([]);
       setIsLoading(true);
       const data = await busApi.getAllFavorites();
+      setFavBusCnt(data.length);
       await Promise.all(
         data.map(async ({ busStopId, routeId }) => {
           const busData = await busApi.getLowArrInfoByStId(busStopId);
@@ -29,6 +30,7 @@ function Favorites() {
     }
   };
   useEffect(() => {
+    setFavBusCnt(0);
     refreshFavoritBusInfo();
 
     const intervalId = setInterval(() => {
@@ -38,13 +40,9 @@ function Favorites() {
     return () => clearInterval(intervalId);
   }, []);
 
-  useEffect(() => {
-    refreshFavoritBusInfo();
-  }, []);
-
   return (
     <Wrapper>
-      <Header reloadTime={reloadTime} />
+      <Header favBusCnt={favBusCnt} reloadTime={reloadTime} />
       <BodyWrapper>
         {isLoading ? (
           <div>로딩중</div>

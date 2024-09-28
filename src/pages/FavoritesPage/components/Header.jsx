@@ -4,7 +4,7 @@ import convertTo12HourFormat from '@pages/busStopPage/utils/convertTo12HourForma
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
-function Header({ reloadTime }) {
+function Header({ favBusCnt, reloadTime }) {
   const [shouldRotate, setShouldRotate] = useState(false);
   const formatedTime = convertTo12HourFormat({
     hours: dayjs(reloadTime.toISOString()).hour(),
@@ -26,7 +26,7 @@ function Header({ reloadTime }) {
       </TitleWrapper>
       <CountsWrapper>
         <TotalCounts>
-          전체 <span style={{ color: 'var(--NavOrange, #E37653)' }}>5</span>개
+          전체 <span style={{ color: 'var(--NavOrange, #E37653)' }}>{favBusCnt}</span>개
         </TotalCounts>
         <ReloadZone>
           {formatedTime} 기준
