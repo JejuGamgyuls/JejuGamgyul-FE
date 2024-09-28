@@ -99,13 +99,11 @@ function Favorites() {
       setBusInfoList([]);
       setIsLoading(true);
       const data = await busApi.getAllFavorites();
-      console.log('DATA', data); //debug
       setBusData(data);
       await Promise.all(
         data.map(async ({ busStopId, routeId }) => {
           const busData = await busApi.getLowArrInfoByStId(busStopId);
           const newData = busData.filter((bus) => bus.busRouteId === routeId);
-          console.log('NEW DATA', newData); //debug
           setBusInfoList((prev) => [...prev, ...newData]);
         }),
       );
@@ -119,12 +117,6 @@ function Favorites() {
     refreshFavoritBusInfo();
   }, []);
 
-  useEffect(() => {
-    if (busInfoList) {
-      console.log(busInfoList); //debug
-    }
-  }, [busInfoList]);
-
   return (
     <Wrapper>
       <Header />
@@ -133,11 +125,9 @@ function Favorites() {
           <div>로딩중</div>
         ) : (
           <div>
-            {busInfoList.map(
-              (busInfo, index) => (
-                console.log(busInfo), (<FavoriteItem key={index} {...busInfo} />)
-              ),
-            )}
+            {busInfoList.map((busInfo, index) => (
+              <FavoriteItem key={index} {...busInfo} />
+            ))}
           </div>
         )}
       </BodyWrapper>
