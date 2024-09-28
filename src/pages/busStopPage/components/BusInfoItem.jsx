@@ -212,6 +212,7 @@ const Route = styled.div`
   display: flex;
   align-items: center;
   gap: 5px;
+  word-break: break-word; /* white-space: nowrap; */
 `;
 const ArrivalMessage = styled.div`
   white-space: nowrap;

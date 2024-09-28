@@ -7,33 +7,6 @@ import styled from 'styled-components';
 
 import theme from '../../../../theme';
 import { busDirectionState } from '../atoms/busDirectionState';
-// nextStatus 0: 원활, 1: 보통, 2: 혼잡, 3: 매우혼잡
-// const mock = [
-//   { name: '흥안운수사계4동종점', id: 11491, nextStatus: '0' },
-//   { name: '하계역', id: 11491, nextStatus: '0' },
-//   { name: '하계역', id: 11491, nextStatus: '1' },
-//   { name: '하계역', id: 11491, nextStatus: '2' },
-//   { name: '하계역', id: 11491, nextStatus: '3' },
-//   { name: '하계역', id: 11491, nextStatus: '2' },
-//   { name: '하계역', id: 11491, nextStatus: '1' },
-//   { name: '하계역', id: 11491, nextStatus: '1' },
-//   { name: '하계역', id: 11491, nextStatus: '0' },
-//   { name: '하계역', id: 11491, nextStatus: '0' },
-//   { name: '하계역', id: 11491, nextStatus: '1' },
-//   { name: '하계역', id: 11491, nextStatus: '2' },
-//   { name: '하계역', id: 11491, nextStatus: '2' },
-//   { name: '하계역', id: 11491, nextStatus: '2' },
-//   { name: '하계역', id: 11491, nextStatus: '3' },
-//   { name: '하계역', id: 11491, nextStatus: '3' },
-//   { name: '하계역', id: 11491, nextStatus: '2' },
-//   { name: '하계역', id: 11491, nextStatus: '1' },
-//   { name: '하계역', id: 11491, nextStatus: '0' },
-//   { name: '하계역', id: 11491, nextStatus: '0' },
-//   { name: '하계역', id: 11491, nextStatus: '2' },
-//   { name: '하계역', id: 11491, nextStatus: '0' },
-//   { name: '하계역', id: 11491, nextStatus: '1' },
-//   { name: '노원우체국', id: 11491, nextStatus: null },
-// ];
 
 function nextStatusColor(status) {
   switch (status) {

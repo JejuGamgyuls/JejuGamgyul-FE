@@ -1,4 +1,3 @@
-import BothArrow from '@assets/svg/BothArrow.svg?react';
 import ThreeDotIcon from '@assets/svg/ThreeDotIcon.svg?react';
 import TrashIcon from '@assets/svg/TrashIcon.svg?react';
 import { ROUTETYPECOLORS, ROUTETYPETAG } from '@constants/const';
@@ -170,7 +169,6 @@ const IconWrapper = styled.div`
   align-items: center;
 `;
 const BusInfo = styled.div`
-  width: 100px;
   display: flex;
   gap: 7px;
 `;
