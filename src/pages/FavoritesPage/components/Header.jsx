@@ -1,7 +1,7 @@
+import ChevronLeft from '@assets/svg/ChevronLeft.svg?react';
 import ReloadIcon from '@assets/svg/ReloadIcon.svg?react';
 import { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
-
 function Header() {
   const [rotate, setRotate] = useState(false);
   const reload = () => {
@@ -13,7 +13,9 @@ function Header() {
   return (
     <Wrapper>
       <TitleWrapper>
-        <Title>&lt; 즐겨찾기</Title>
+        <Title>
+          <ChevronLeft /> 즐겨찾기
+        </Title>
       </TitleWrapper>
       <CountsWrapper>
         <TotalCounts>
@@ -30,9 +32,11 @@ function Header() {
   );
 }
 const Wrapper = styled.div`
-  width: auto;
-  margin: 0 auto;
-  padding: 0 20px;
+  position: absolute;
+  top: 0;
+  background-color: var(--Gray01, red);
+  width: 100%;
+  z-index: 1;
 `;
 const TitleWrapper = styled.div`
   height: 52px;
@@ -46,6 +50,9 @@ const Title = styled.div`
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 `;
 const CountsWrapper = styled.div`
   height: 45px;
