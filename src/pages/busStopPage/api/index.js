@@ -8,9 +8,8 @@ export const getLowArrInfoByStId = async (stId) => {
         stId: stId,
       },
     });
-    const data = res.data.msgBody.itemList.filter(
-      (item) => item.arrmsg1 !== '출발대기' && item.arrmsg1 !== '운행종료',
-    );
+
+    const data = res.data.msgBody.itemList;
     return data;
   } catch (e) {
     throw new Error(e);
@@ -60,3 +59,24 @@ export const handleCancelFavorite = (busStopId, busRouteId) => {
     .then((res) => res.json());
 };
 
+/**
+ * @typedef {Object} FavoritBusInfo
+ * @property {string} busStopId
+ * @property {string} busStopName
+ * @property {string} routeId
+ * @property {string} routeName
+ * @property {string} userId
+ */
+
+/**
+ *
+ * @returns {FavoritBusInfo[]}
+ */
+export const getAllFavorites = async () =>
+  (
+    await axios.get('http://localhost:8080/favorites/getByUserToken', {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    })
+  ).data;
