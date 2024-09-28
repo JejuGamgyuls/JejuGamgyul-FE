@@ -53,9 +53,12 @@ function BusStopHeader({ reloadTime }) {
 }
 
 const Wrapper = styled.div`
-  width: 100%;
+  width: calc(100% - 60px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.5);
   padding-bottom: 10px;
+  position: absolute;
+  background-color: #fff;
+  box-sizing: border-box;
 `;
 const InfoWrapper = styled.div`
   width: 332px;

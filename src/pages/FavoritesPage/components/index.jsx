@@ -122,11 +122,11 @@ function Favorites() {
         {isLoading ? (
           <div>로딩중</div>
         ) : (
-          <div>
+          <ItemWrapper>
             {busInfoList.map((busInfo, index) => (
               <FavoriteItem key={index} {...busInfo} />
             ))}
-          </div>
+          </ItemWrapper>
         )}
       </BodyWrapper>
     </Wrapper>
@@ -149,4 +149,17 @@ const BodyWrapper = styled.div`
   width: 390px;
   height: calc(100vh - 120px);
   overflow-y: auto;
+  margin-top: 70px;
+  background-color: var(--Gray01, #fff);
+`;
+
+const ItemWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 0 20px;
+  box-sizing: border-box;
+  margin-top: 10px;
+  background-color: var(--Gray01, #fff);
 `;
