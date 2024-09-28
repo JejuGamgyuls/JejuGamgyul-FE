@@ -9,11 +9,9 @@ import { GlobalStyle } from '../globalStyle';
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
-    <StrictMode>
-      <RecoilRoot>
-        <GlobalStyle />
-        <App />
-      </RecoilRoot>
-    </StrictMode>
+    <RecoilRoot>
+      <GlobalStyle />
+      <App />
+    </RecoilRoot>
   </BrowserRouter>,
 );

@@ -12,7 +12,6 @@ function LoginPage() {
   const handleLogin = async () => {
     const id = idRef.current.value;
     const pwd = pwdRef.current.value;
-    console.log(id, pwd);
     try {
       const res = await axios.post('http://localhost:8080/login', {
         userId: id,

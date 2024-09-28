@@ -8,14 +8,16 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-function BusInfoItem({ busRouteId, rtNm, exps1, exps2 }) {
+import { formatTime } from '../utils/formatTime';
+
+function BusInfoItem({ arrmsg1, busRouteId, rtNm, exps1, exps2 }) {
   const { direction } = useGetDirection(busRouteId);
   const [left1, setLeft1] = useState(exps1);
   const [left2, setLeft2] = useState(exps2);
+
   const [isFavorite, setIsFavorite] = useState(false);
   const { busStopName } = useParams();
   const busStopId = new URLSearchParams(window.location.search).get('busStopId');
-
   useEffect(() => {
     const interval = setInterval(() => {
       setLeft1((prev) => (prev > 0 ? prev - 1 : 0));
@@ -24,18 +26,6 @@ function BusInfoItem({ busRouteId, rtNm, exps1, exps2 }) {
 
     return () => clearInterval(interval);
   }, []);
-
-  const formatTime = (seconds) => {
-    const minutes = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    if (minutes <= 0) {
-      return '곧 도착';
-    } else if (minutes >= 10 || seconds === 0) {
-      return `${minutes}분`;
-    } else if (minutes < 10 && minutes > 0) {
-      return `${minutes}분 ${secs}초`;
-    }
-  };
 
   const handleAddFavorite = async () => {
     try {
@@ -119,15 +109,25 @@ function BusInfoItem({ busRouteId, rtNm, exps1, exps2 }) {
             )}
           </BusDetails>
           <RouteDetails>
-            <Route>
-              {direction.from}
-              <BothArrow />
-              {direction.to}
-            </Route>
+            {direction.from.length > 0 && (
+              <Route>
+                {direction.from}
+                <BothArrow />
+                {direction.to}
+              </Route>
+            )}
           </RouteDetails>
           <ArrivalDetails>
-            <ArrivalMessage>{formatTime(left1)}</ArrivalMessage>
-            <ArrivalMessage>{formatTime(left2)}</ArrivalMessage>
+            {arrmsg1 === '운행종료' ? (
+              <ArrivalMessage>{arrmsg1}</ArrivalMessage>
+            ) : arrmsg1 === '출발대기' ? (
+              <ArrivalMessage>{arrmsg1}</ArrivalMessage>
+            ) : (
+              <ArrivalDetails>
+                <ArrivalMessage>{formatTime(left1)}</ArrivalMessage>
+                <ArrivalMessage>{formatTime(left2)}</ArrivalMessage>
+              </ArrivalDetails>
+            )}
           </ArrivalDetails>
         </BusInfo>
       </BusInfoWrapper>
@@ -212,6 +212,7 @@ const Route = styled.div`
   display: flex;
   align-items: center;
   gap: 5px;
+  word-break: break-word; /* white-space: nowrap; */
 `;
 const ArrivalMessage = styled.div`
   white-space: nowrap;

@@ -6,7 +6,6 @@ export const handleSignUp = (data, isFormValid, navigate) => {
     instance
       .post('http://localhost:8080/api/auth/signUp', data)
       .then((res) => {
-        console.log(res);
         navigate(ROUTE.LOGIN);
       })
       .catch((err) => {
