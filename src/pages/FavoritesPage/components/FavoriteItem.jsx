@@ -1,20 +1,16 @@
+import BothArrow from '@assets/svg/BothArrow.svg?react';
 import ThreeDotIcon from '@assets/svg/ThreeDotIcon.svg?react';
 import TrashIcon from '@assets/svg/TrashIcon.svg?react';
+import { ROUTETYPECOLORS, ROUTETYPETAG } from '@constants/const';
+import useGetDirection from '@hooks/useGetDirection';
+import { formatTime } from '@pages/busStopPage/utils/formatTime';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-
-function FavoriteItem({
-  stationName,
-  stationNum,
-  busDirection,
-  routeType,
-  busNum,
-  arrMsg1,
-  stopsLeft1,
-  arrMsg2,
-  stopsLeft2,
-}) {
+function FavoriteItem({ arrmsg1, stNm, exps1, exps2, rtNm, stId, busRouteId, routeType }) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const { direction } = useGetDirection(busRouteId);
+  const [left1, setLeft1] = useState(exps1);
+  const [left2, setLeft2] = useState(exps2);
   const modalRef = useRef();
   const iconWrapperRef = useRef();
 
@@ -29,6 +25,14 @@ function FavoriteItem({
     }
   };
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLeft1((prev) => (prev > 0 ? prev - 1 : 0));
+      setLeft2((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
   useEffect(() => {
     if (isDeleteModalOpen) {
       document.addEventListener('mousedown', handleClickOutside);
@@ -57,24 +61,30 @@ function FavoriteItem({
           )}
           <StationDetails>
             <StationInfo>
-              <StationName>{stationName}</StationName>
-              <StationId>{stationNum}</StationId>
+              <StationName>{stNm}</StationName>
+              <StationId>{stId}</StationId>
             </StationInfo>
             <IconWrapper ref={iconWrapperRef} onClick={toggleDeleteModal}>
               <ThreeDotIcon />
             </IconWrapper>
           </StationDetails>
-          <DirectionDetails>{busDirection}</DirectionDetails>
+          <DirectionDetails>
+            {direction.length > 0 && <Route>{direction.to} 방면</Route>}
+          </DirectionDetails>
           <MoreInfos>
             <BusInfo>
-              <RouteTypeTag>{routeType}</RouteTypeTag>
-              <BusNum>{busNum}</BusNum>
+              <RouteTypeTag routetype={routeType}>{ROUTETYPETAG[routeType]}</RouteTypeTag>
+              <BusNum>{rtNm}</BusNum>
             </BusInfo>
             <ArrivalDetails>
-              <ArrivalMessage>{arrMsg1}</ArrivalMessage>
-              <StopsLeft>{stopsLeft1}</StopsLeft>
-              <ArrivalMessage>{arrMsg2}</ArrivalMessage>
-              <StopsLeft>{stopsLeft2}</StopsLeft>
+              {arrmsg1 === '운행종료' ? (
+                <ArrivalMessage>{arrmsg1}</ArrivalMessage>
+              ) : (
+                <ArrivalDetails>
+                  <ArrivalMessage>{formatTime(left1)}</ArrivalMessage>
+                  <ArrivalMessage>{formatTime(left2)}</ArrivalMessage>
+                </ArrivalDetails>
+              )}
             </ArrivalDetails>
           </MoreInfos>
         </ItemWrapper>
@@ -110,6 +120,11 @@ const StationDetails = styled.div`
 const StationInfo = styled.div`
   display: flex;
   gap: 10px;
+`;
+const Route = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
 `;
 const DirectionDetails = styled.div`
   width: 100%;
@@ -163,7 +178,7 @@ const RouteTypeTag = styled.div`
   width: 32px;
   height: 16px;
   border-radius: 2px;
-  background: var(--Blue, #386de8);
+  background: ${({ routetype }) => ROUTETYPECOLORS[routetype]};
   color: #fff;
   text-align: center;
   font-family: Pretendard;
@@ -172,6 +187,9 @@ const RouteTypeTag = styled.div`
   font-weight: 400;
   line-height: normal;
   padding: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 const BusNum = styled.div`
   color: #000;
