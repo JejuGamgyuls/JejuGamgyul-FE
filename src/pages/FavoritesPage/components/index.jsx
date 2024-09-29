@@ -1,4 +1,5 @@
-import * as busApi from '@pages/busStopPage/api';
+import * as busApi from '@apis/favorite';
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
@@ -10,6 +11,12 @@ function Favorites() {
   const [reloadTime, setReloadTime] = useState(new Date());
   const [favBusCnt, setFavBusCnt] = useState(0);
   const [busInfoList, setBusInfoList] = useState([]);
+  const [isCancelFavorite, setIsCancelFavorite] = useState(false);
+
+  useEffect(() => {
+    refreshFavoritBusInfo();
+  }, [isCancelFavorite]);
+
   const refreshFavoritBusInfo = async () => {
     try {
       setBusInfoList([]);
@@ -24,6 +31,7 @@ function Favorites() {
         }),
       );
       setIsLoading(false);
+      setIsCancelFavorite(false);
     } catch (e) {
       throw new Error(e);
     }
@@ -48,7 +56,7 @@ function Favorites() {
         ) : (
           <ItemWrapper>
             {busInfoList.map((busInfo, index) => (
-              <FavoriteItem key={index} {...busInfo} />
+              <FavoriteItem key={index} {...busInfo} setIsCancelFavorite={setIsCancelFavorite} />
             ))}
           </ItemWrapper>
         )}
