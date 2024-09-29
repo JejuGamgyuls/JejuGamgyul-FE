@@ -1,5 +1,10 @@
+import { navigationBarState } from '@atoms/NavigationBarState';
+import { CATEGORY } from '@constants/const';
+import { ROUTE } from '@constants/route';
 import * as busApi from '@pages/busStopPage/api';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import FavoriteItem from './FavoriteItem';
@@ -10,7 +15,7 @@ function Favorites() {
   const [reloadTime, setReloadTime] = useState(new Date());
   const [favBusCnt, setFavBusCnt] = useState(0);
   const [busInfoList, setBusInfoList] = useState([]);
-
+  const navigate = useNavigate();
   const refreshFavoritBusInfo = async () => {
     try {
       setBusInfoList([]);

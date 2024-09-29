@@ -1,20 +1,32 @@
 import ThreeDotIcon from '@assets/svg/ThreeDotIcon.svg?react';
 import TrashIcon from '@assets/svg/TrashIcon.svg?react';
-import { ROUTETYPECOLORS, ROUTETYPETAG } from '@constants/const';
+import { navigationBarState } from '@atoms/NavigationBarState';
+import { CATEGORY, ROUTETYPECOLORS, ROUTETYPETAG } from '@constants/const';
+import { ROUTE } from '@constants/route';
 import useGetDirection from '@hooks/useGetDirection';
 import { formatTime } from '@pages/busStopPage/utils/formatTime';
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-function FavoriteItem({ arrmsg1, stNm, exps1, exps2, rtNm, stId, busRouteId, routeType }) {
+function FavoriteItem({
+  arrmsg1,
+  stNm,
+  exps1,
+  exps2,
+  rtNm,
+  stId,
+  busRouteId,
+  routeType,
+  handleClick,
+}) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const { direction } = useGetDirection(busRouteId);
   const [left1, setLeft1] = useState(exps1);
   const [left2, setLeft2] = useState(exps2);
   const modalRef = useRef();
   const iconWrapperRef = useRef();
-  if (rtNm === '400') {
-    console.log(arrmsg1);
-  }
+
   const handleClickOutside = (event) => {
     if (
       modalRef.current &&
@@ -48,9 +60,17 @@ function FavoriteItem({ arrmsg1, stNm, exps1, exps2, rtNm, stId, busRouteId, rou
   const toggleDeleteModal = () => {
     setIsDeleteModalOpen((prev) => !prev);
   };
+
+  const [, setCategory] = useRecoilState(navigationBarState);
+  const navigate = useNavigate();
+  const navigateToBusDetail = (rtNm) => {
+    const url = ROUTE.BUSFIND.replace(':busNumber', rtNm);
+    navigate(url);
+    setCategory(CATEGORY.BUSDETAILINFO);
+  };
   return (
     <>
-      <Wrapper>
+      <Wrapper onClick={() => navigateToBusDetail(rtNm)}>
         <ItemWrapper>
           {isDeleteModalOpen && (
             <DeleteModal ref={modalRef}>
