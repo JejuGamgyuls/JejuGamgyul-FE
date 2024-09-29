@@ -2,10 +2,14 @@ import BlueBusIcon from '@assets/svg/BlueBusIcon.svg?react';
 import BothArrow from '@assets/svg/BothArrow.svg?react';
 import FavoriteIcon from '@assets/svg/FavoriteIcon.svg?react';
 import FilledStarIcon from '@assets/svg/FilledStarIcon.svg?react';
+import { navigationBarState } from '@atoms/NavigationBarState';
+import { CATEGORY } from '@constants/const';
+import { ROUTE } from '@constants/route';
 import useGetDirection from '@hooks/useGetDirection';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import { formatTime } from '../utils/formatTime';
@@ -18,6 +22,7 @@ function BusInfoItem({ arrmsg1, busRouteId, rtNm, exps1, exps2, arrmsg2 }) {
   const [isFavorite, setIsFavorite] = useState(false);
   const { busStopName } = useParams();
   const busStopId = new URLSearchParams(window.location.search).get('busStopId');
+
   useEffect(() => {
     const interval = setInterval(() => {
       setLeft1((prev) => (prev > 0 ? prev - 1 : 0));
@@ -89,8 +94,16 @@ function BusInfoItem({ arrmsg1, busRouteId, rtNm, exps1, exps2, arrmsg2 }) {
       throw new Error(e);
     }
   };
+
+  const [, setCategory] = useRecoilState(navigationBarState);
+  const navigate = useNavigate();
+  const navigateToBusDetail = (rtNm) => {
+    const url = ROUTE.BUSFIND.replace(':busNumber', rtNm);
+    navigate(url);
+    setCategory(CATEGORY.BUSDETAILINFO);
+  };
   return (
-    <Wrapper>
+    <Wrapper onClick={() => navigateToBusDetail(rtNm)}>
       <BusInfoWrapper>
         <IconWrapper>
           <BlueBusIcon style={{ width: '24px', height: '24px' }} />
