@@ -1,14 +1,29 @@
 import BlueBusIcon from '@assets/svg/BlueBusIcon.svg?react';
 import BothArrow from '@assets/svg/BothArrow.svg?react';
+import FavoriteIcon from '@assets/svg/FavoriteIcon.svg?react';
+import FilledStarIcon from '@assets/svg/FilledStarIcon.svg?react';
+import { navigationBarState } from '@atoms/NavigationBarState';
+import { CATEGORY } from '@constants/const';
+import { ROUTE } from '@constants/route';
 import useGetDirection from '@hooks/useGetDirection';
+import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
-function BusInfoItem({ busRouteId, rtNm, exps1, exps2 }) {
+import { formatTime } from '../utils/formatTime';
+
+function BusInfoItem({ arrmsg1, busRouteId, rtNm, exps1, exps2, arrmsg2 }) {
   const { direction } = useGetDirection(busRouteId);
   const [left1, setLeft1] = useState(exps1);
   const [left2, setLeft2] = useState(exps2);
 
+  const [isFavorite, setIsFavorite] = useState(false);
+  const { busStopName } = useParams();
+  const busStopId = new URLSearchParams(window.location.search).get('busStopId');
+  const [, setCategory] = useRecoilState(navigationBarState);
+  const navigate = useNavigate();
   useEffect(() => {
     const interval = setInterval(() => {
       setLeft1((prev) => (prev > 0 ? prev - 1 : 0));
@@ -18,20 +33,77 @@ function BusInfoItem({ busRouteId, rtNm, exps1, exps2 }) {
     return () => clearInterval(interval);
   }, []);
 
-  const formatTime = (seconds) => {
-    const minutes = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    if (minutes <= 0) {
-      return '곧 도착';
-    } else if (minutes >= 10 || seconds === 0) {
-      return `${minutes}분`;
-    } else if (minutes < 10 && minutes > 0) {
-      return `${minutes}분 ${secs}초`;
+  const handleAddFavorite = async () => {
+    try {
+      const res = await axios.post(
+        'http://localhost:8080/favorites/add',
+        {
+          busStopId: busStopId,
+          busStopName: busStopName,
+          routeName: rtNm,
+          routeId: busRouteId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        },
+      );
+      if (res.status === 201) {
+        alert('즐겨찾기에 추가되었습니다.');
+        handleGetFavorites();
+      }
+    } catch (e) {
+      throw new Error(e);
     }
   };
 
+  const handleGetFavorites = async () => {
+    try {
+      const res = await axios.get('http://localhost:8080/favorites/getByUserToken', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+
+      setIsFavorite(res.data.some((item) => item.routeId === busRouteId));
+    } catch (e) {
+      throw new Error(e);
+    }
+  };
+
+  useEffect(() => {
+    handleGetFavorites();
+  }, []);
+
+  const handleCancelFavorite = async () => {
+    try {
+      const res = await axios.delete('http://localhost:8080/favorites/delete', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        params: {
+          busStopId: busStopId,
+          routeid: busRouteId,
+        },
+      });
+      if (res.status === 200) {
+        alert('즐겨찾기에서 삭제되었습니다.');
+        handleGetFavorites();
+      }
+    } catch (e) {
+      throw new Error(e);
+    }
+  };
+
+
+  const navigateToBusDetail = (rtNm) => {
+    const url = ROUTE.BUSFIND.replace(':busNumber', rtNm);
+    navigate(url);
+    setCategory(CATEGORY.BUSDETAILINFO);
+  };
   return (
-    <Wrapper>
+    <Wrapper onClick={() => navigateToBusDetail(rtNm)}>
       <BusInfoWrapper>
         <IconWrapper>
           <BlueBusIcon style={{ width: '24px', height: '24px' }} />
@@ -39,17 +111,36 @@ function BusInfoItem({ busRouteId, rtNm, exps1, exps2 }) {
         <BusInfo>
           <BusDetails>
             <BusNumber>{rtNm}</BusNumber>
+            {isFavorite ? (
+              <IconWrapper onClick={handleCancelFavorite}>
+                <FilledStarIcon style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
+              </IconWrapper>
+            ) : (
+              <IconWrapper onClick={handleAddFavorite}>
+                <FavoriteIcon style={{ width: '16px', height: '16px', cursor: 'pointer' }} />
+              </IconWrapper>
+            )}
           </BusDetails>
           <RouteDetails>
-            <Route>
-              {direction.from}
-              <BothArrow />
-              {direction.to}
-            </Route>
+            {direction.from.length > 0 && (
+              <Route>
+                {direction.from}
+                <BothArrow />
+                {direction.to}
+              </Route>
+            )}
           </RouteDetails>
           <ArrivalDetails>
-            <ArrivalMessage>{formatTime(left1)}</ArrivalMessage>
-            <ArrivalMessage>{formatTime(left2)}</ArrivalMessage>
+            {(arrmsg1 === '운행종료') | (arrmsg1 === '출발대기') ? (
+              <ArrivalMessage>{arrmsg1}</ArrivalMessage>
+            ) : (
+              <ArrivalMessage>{formatTime(left1)}</ArrivalMessage>
+            )}
+            {(arrmsg2 === '운행종료') | (arrmsg2 === '출발대기') ? (
+              <ArrivalMessage>{arrmsg2}</ArrivalMessage>
+            ) : (
+              <ArrivalMessage>{formatTime(left2)}</ArrivalMessage>
+            )}
           </ArrivalDetails>
         </BusInfo>
       </BusInfoWrapper>
@@ -72,7 +163,7 @@ const BusInfoWrapper = styled.div`
   gap: 22px;
 `;
 const IconWrapper = styled.div`
-  width: 29px;
+  width: 12px;
 `;
 const BusInfo = styled.div`
   width: 304px;
@@ -82,6 +173,8 @@ const BusDetails = styled.div`
   height: 25px;
   display: flex;
   gap: 22px;
+  justify-content: space-between;
+  align-items: center;
 `;
 const RouteDetails = styled.div`
   width: 100%;
@@ -132,6 +225,7 @@ const Route = styled.div`
   display: flex;
   align-items: center;
   gap: 5px;
+  word-break: break-word; /* white-space: nowrap; */
 `;
 const ArrivalMessage = styled.div`
   white-space: nowrap;

@@ -1,8 +1,9 @@
+import { forwardRef } from 'react';
 import styled from 'styled-components';
 
-function Input({ type = 'text', placeholder, onChange }) {
-  return <TextInput type={type} placeholder={placeholder} onChange={onChange} />;
-}
+const Input = forwardRef(function Input({ type = 'text', placeholder, onChange }, ref) {
+  return <TextInput ref={ref} type={type} placeholder={placeholder} onChange={onChange} />;
+});
 
 const TextInput = styled.input`
   flex: 1;

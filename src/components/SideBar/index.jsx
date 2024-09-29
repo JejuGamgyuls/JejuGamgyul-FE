@@ -62,6 +62,7 @@ function SideBar() {
 
   const Component = SIDE_BAR_MAP[category];
   const busStopId = new URLSearchParams(window.location.search).get('busStopId');
+
   return (
     <S.Wrapper>
       {category !== CATEGORY.FAVORITE && <FindBusInput />}

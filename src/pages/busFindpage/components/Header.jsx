@@ -1,5 +1,4 @@
 import BlackBusIcon from '@assets/svg/BlackBusIcon.svg?react';
-import GrayBlankStarIcon from '@assets/svg/GrayBlankStarIcon.svg?react';
 import { STYLE } from '@constants/const';
 import styled from 'styled-components';
 
@@ -15,11 +14,6 @@ function Header({ busInfo }) {
           <BlackBusIcon fill="black" width={30} height={30} />
           <BusNumber>{busInfo.busRouteNm}</BusNumber>
         </BusNumberWrapper>
-        <IconWrapper>
-          <GrayBlankStarIcon width={24} height={24} />
-        </IconWrapper>
-        <BlackBusIcon fill="black" width={30} height={30} />
-        <BusNumber>{busInfo.busRouteNm}</BusNumber>
       </BusInfo>
     </Wrapper>
   );

@@ -1,38 +1,52 @@
+import ChevronLeft from '@assets/svg/ChevronLeft.svg?react';
 import ReloadIcon from '@assets/svg/ReloadIcon.svg?react';
-import { useState } from 'react';
+import convertTo12HourFormat from '@pages/busStopPage/utils/convertTo12HourFormat';
+import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
-
-function Header() {
-  const [rotate, setRotate] = useState(false);
-  const reload = () => {
-    setRotate(true);
-    setTimeout(() => {
-      setRotate(false);
-    }, 500);
-  };
+function Header({ favBusCnt, reloadTime }) {
+  const [shouldRotate, setShouldRotate] = useState(false);
+  const formatedTime = convertTo12HourFormat({
+    hours: dayjs(reloadTime.toISOString()).hour(),
+    minutes: dayjs(reloadTime.toISOString()).minute(),
+  });
+  useEffect(() => {
+    if (reloadTime) {
+      setShouldRotate(true);
+      const timer = setTimeout(() => setShouldRotate(false), 1000); // 1초 후에 회전 멈춤
+      return () => clearTimeout(timer);
+    }
+  }, [reloadTime]);
   return (
     <Wrapper>
       <TitleWrapper>
-        <Title>&lt; 즐겨찾기</Title>
+        <Title>
+          <ChevronLeft /> 즐겨찾기
+        </Title>
       </TitleWrapper>
       <CountsWrapper>
         <TotalCounts>
-          전체 <span style={{ color: 'var(--NavOrange, #E37653)' }}>5</span>개
+          전체 <span style={{ color: 'var(--NavOrange, #E37653)' }}>{favBusCnt}</span>개
         </TotalCounts>
-        <CurrentTime>
-          <TimeMarker>오전 07 : 05 기준</TimeMarker>
-          <IconWrapper rotate={rotate} onClick={reload}>
-            <ReloadIcon />
+        <ReloadZone>
+          {formatedTime} 기준
+          <IconWrapper shouldRotate={shouldRotate}>
+            <ReloadIcon width={14} height={14} />
           </IconWrapper>
-        </CurrentTime>
+        </ReloadZone>
       </CountsWrapper>
     </Wrapper>
   );
 }
 const Wrapper = styled.div`
-  width: auto;
-  margin: 0 auto;
-  padding: 0 20px;
+  position: absolute;
+  top: 0;
+  background-color: var(--Gray01, white);
+  width: 390px;
+  z-index: 1;
+  padding: 20px;
+  box-sizing: border-box;
+  height: 120px;
 `;
 const TitleWrapper = styled.div`
   height: 52px;
@@ -46,7 +60,20 @@ const Title = styled.div`
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 `;
+const ReloadZone = styled.div`
+  display: flex;
+  gap: 5px;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+`;
+
 const CountsWrapper = styled.div`
   height: 45px;
   display: flex;
@@ -55,18 +82,6 @@ const CountsWrapper = styled.div`
 `;
 const TotalCounts = styled.div`
   color: #000;
-  font-family: Pretendard;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-`;
-const CurrentTime = styled.div`
-  display: flex;
-  gap: 5px;
-`;
-const TimeMarker = styled.div`
-  color: var(--Gray06, #767676);
   font-family: Pretendard;
   font-size: 12px;
   font-style: normal;

@@ -153,7 +153,7 @@ function SignUpPage() {
           <S.ButtonWrapper>
             <SubmitButton
               text="가입하기"
-              handleSignUp={() => handleSignUp(data, isFormValid, navigate)}
+              handleClick={() => handleSignUp(data, isFormValid, navigate)}
             />
           </S.ButtonWrapper>
         </S.InputsWrapper>

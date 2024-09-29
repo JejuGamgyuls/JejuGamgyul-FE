@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-function SubmitButton({ text, background, border, color, handleSignUp }) {
+function SubmitButton({ text, background, border, color, handleClick }) {
   return (
-    <StyledButton $background={background} $border={border} color={color} onClick={handleSignUp}>
+    <StyledButton onClick={handleClick} $background={background} $border={border} color={color}>
       {text}
     </StyledButton>
   );

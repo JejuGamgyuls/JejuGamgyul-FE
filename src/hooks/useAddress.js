@@ -14,7 +14,6 @@ const useAddress = () => {
     const fetchAddress = async (lat, lng) => {
       try {
         const result = await getAddressFromCoordinates(lat, lng);
-        console.log(result);
         setAddress(result);
       } catch (err) {
         setError(err);

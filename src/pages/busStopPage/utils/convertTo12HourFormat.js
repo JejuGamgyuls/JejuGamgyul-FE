@@ -4,6 +4,9 @@ const convertTo12HourFormat = ({ hours, minutes }) => {
   if (twelveHour < 10) {
     twelveHour = `0${twelveHour}`;
   }
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
   return `${ampm} ${twelveHour}:${minutes} `;
 };
 export default convertTo12HourFormat;

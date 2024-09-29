@@ -21,7 +21,6 @@ function BusDetailInfo() {
         params: { strSrch },
       });
       const data = response.data.msgBody.itemList[0];
-      console.log(data);
       setBusInfo(data);
     } catch (err) {
       console.log('API 호출에 실패했습니다.');
