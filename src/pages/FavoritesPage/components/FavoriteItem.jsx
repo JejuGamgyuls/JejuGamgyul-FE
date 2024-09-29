@@ -9,17 +9,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-function FavoriteItem({
-  arrmsg1,
-  stNm,
-  exps1,
-  exps2,
-  rtNm,
-  stId,
-  busRouteId,
-  routeType,
-  handleClick,
-}) {
+function FavoriteItem({ arrmsg1, arrmsg2, stNm, exps1, exps2, rtNm, stId, busRouteId, routeType }) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const { direction } = useGetDirection(busRouteId);
   const [left1, setLeft1] = useState(exps1);
@@ -101,10 +91,12 @@ function FavoriteItem({
               {(arrmsg1 === '운행종료') | (arrmsg1 === '출발대기') ? (
                 <ArrivalMessage>{arrmsg1}</ArrivalMessage>
               ) : (
-                <ArrivalDetails>
-                  <ArrivalMessage>{formatTime(left1)}</ArrivalMessage>
-                  <ArrivalMessage>{formatTime(left2)}</ArrivalMessage>
-                </ArrivalDetails>
+                <ArrivalMessage>{formatTime(left1)}</ArrivalMessage>
+              )}
+              {(arrmsg2 === '운행종료') | (arrmsg2 === '출발대기') ? (
+                <ArrivalMessage>{arrmsg2}</ArrivalMessage>
+              ) : (
+                <ArrivalMessage>{formatTime(left2)}</ArrivalMessage>
               )}
             </ArrivalDetails>
           </MoreInfos>

@@ -10,7 +10,7 @@ import styled from 'styled-components';
 
 import { formatTime } from '../utils/formatTime';
 
-function BusInfoItem({ arrmsg1, busRouteId, rtNm, exps1, exps2 }) {
+function BusInfoItem({ arrmsg1, busRouteId, rtNm, exps1, exps2, arrmsg2 }) {
   const { direction } = useGetDirection(busRouteId);
   const [left1, setLeft1] = useState(exps1);
   const [left2, setLeft2] = useState(exps2);
@@ -118,15 +118,15 @@ function BusInfoItem({ arrmsg1, busRouteId, rtNm, exps1, exps2 }) {
             )}
           </RouteDetails>
           <ArrivalDetails>
-            {arrmsg1 === '운행종료' ? (
-              <ArrivalMessage>{arrmsg1}</ArrivalMessage>
-            ) : arrmsg1 === '출발대기' ? (
+            {(arrmsg1 === '운행종료') | (arrmsg1 === '출발대기') ? (
               <ArrivalMessage>{arrmsg1}</ArrivalMessage>
             ) : (
-              <ArrivalDetails>
-                <ArrivalMessage>{formatTime(left1)}</ArrivalMessage>
-                <ArrivalMessage>{formatTime(left2)}</ArrivalMessage>
-              </ArrivalDetails>
+              <ArrivalMessage>{formatTime(left1)}</ArrivalMessage>
+            )}
+            {(arrmsg2 === '운행종료') | (arrmsg2 === '출발대기') ? (
+              <ArrivalMessage>{arrmsg2}</ArrivalMessage>
+            ) : (
+              <ArrivalMessage>{formatTime(left2)}</ArrivalMessage>
             )}
           </ArrivalDetails>
         </BusInfo>
