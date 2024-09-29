@@ -12,7 +12,9 @@ function FavoriteItem({ arrmsg1, stNm, exps1, exps2, rtNm, stId, busRouteId, rou
   const [left2, setLeft2] = useState(exps2);
   const modalRef = useRef();
   const iconWrapperRef = useRef();
-
+  if (rtNm === '400') {
+    console.log(arrmsg1);
+  }
   const handleClickOutside = (event) => {
     if (
       modalRef.current &&
@@ -76,7 +78,7 @@ function FavoriteItem({ arrmsg1, stNm, exps1, exps2, rtNm, stId, busRouteId, rou
               <BusNum>{rtNm}</BusNum>
             </BusInfo>
             <ArrivalDetails>
-              {arrmsg1 === '운행종료' ? (
+              {(arrmsg1 === '운행종료') | (arrmsg1 === '출발대기') ? (
                 <ArrivalMessage>{arrmsg1}</ArrivalMessage>
               ) : (
                 <ArrivalDetails>
