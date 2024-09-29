@@ -22,7 +22,8 @@ function BusInfoItem({ arrmsg1, busRouteId, rtNm, exps1, exps2, arrmsg2 }) {
   const [isFavorite, setIsFavorite] = useState(false);
   const { busStopName } = useParams();
   const busStopId = new URLSearchParams(window.location.search).get('busStopId');
-
+  const [, setCategory] = useRecoilState(navigationBarState);
+  const navigate = useNavigate();
   useEffect(() => {
     const interval = setInterval(() => {
       setLeft1((prev) => (prev > 0 ? prev - 1 : 0));
@@ -95,8 +96,7 @@ function BusInfoItem({ arrmsg1, busRouteId, rtNm, exps1, exps2, arrmsg2 }) {
     }
   };
 
-  const [, setCategory] = useRecoilState(navigationBarState);
-  const navigate = useNavigate();
+
   const navigateToBusDetail = (rtNm) => {
     const url = ROUTE.BUSFIND.replace(':busNumber', rtNm);
     navigate(url);

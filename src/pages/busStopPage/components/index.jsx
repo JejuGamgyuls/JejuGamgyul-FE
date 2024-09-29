@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import BusInfoItem from './BusInfoItem';
 import BusStopHeader from './BusStopHeader';
-import { getLowArrInfoByStId } from '../api';
+import { getLowArrInfoByStId } from '../../../apis/favorite';
 
 function BusStopInfo({ busStopId }) {
   const [busInfoList, setBusInfoList] = useState([]);

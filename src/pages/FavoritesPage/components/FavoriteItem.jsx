@@ -5,11 +5,24 @@ import { CATEGORY, ROUTETYPECOLORS, ROUTETYPETAG } from '@constants/const';
 import { ROUTE } from '@constants/route';
 import useGetDirection from '@hooks/useGetDirection';
 import { formatTime } from '@pages/busStopPage/utils/formatTime';
+import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-function FavoriteItem({ arrmsg1, arrmsg2, stNm, exps1, exps2, rtNm, stId, busRouteId, routeType }) {
+
+function FavoriteItem({
+  arrmsg1,
+  arrmsg2,
+  stNm,
+  exps1,
+  exps2,
+  rtNm,
+  stId,
+  busRouteId,
+  routeType,
+  setIsCancelFavorite,
+}) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const { direction } = useGetDirection(busRouteId);
   const [left1, setLeft1] = useState(exps1);
@@ -58,13 +71,34 @@ function FavoriteItem({ arrmsg1, arrmsg2, stNm, exps1, exps2, rtNm, stId, busRou
     navigate(url);
     setCategory(CATEGORY.BUSDETAILINFO);
   };
+
+  const handleCancelFavorite = async (stId) => {
+    try {
+      const res = await axios.delete('http://localhost:8080/favorites/delete', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+        params: {
+          busStopId: stId,
+          routeid: busRouteId,
+        },
+      });
+      if (res.status === 200) {
+        alert('즐겨찾기에서 삭제되었습니다.');
+        setIsDeleteModalOpen(false);
+        setIsCancelFavorite(true);
+      }
+    } catch (e) {
+      throw new Error(e);
+    }
+  };
   return (
     <>
-      <Wrapper onClick={() => navigateToBusDetail(rtNm)}>
+      <Wrapper>
         <ItemWrapper>
           {isDeleteModalOpen && (
             <DeleteModal ref={modalRef}>
-              <ModalText>삭제</ModalText>
+              <ModalText onClick={() => handleCancelFavorite(stId)}>삭제</ModalText>
               <DeleteIcon>
                 <TrashIcon style={{ width: '24px', height: '24px' }} />
               </DeleteIcon>
@@ -72,7 +106,7 @@ function FavoriteItem({ arrmsg1, arrmsg2, stNm, exps1, exps2, rtNm, stId, busRou
           )}
           <StationDetails>
             <StationInfo>
-              <StationName>{stNm}</StationName>
+              <StationName onClick={() => navigateToBusDetail(rtNm)}>{stNm}</StationName>
               <StationId>{stId}</StationId>
             </StationInfo>
             <IconWrapper ref={iconWrapperRef} onClick={toggleDeleteModal}>
