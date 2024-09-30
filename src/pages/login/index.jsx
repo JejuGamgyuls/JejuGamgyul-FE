@@ -1,13 +1,16 @@
+import { userState } from '@atoms/navigationBarState';
 import SubmitButton from '@components/Buttons/SubmitButton';
 import Input from '@components/Input';
 import axios from 'axios';
 import { useRef } from 'react';
+import { useRecoilState } from 'recoil';
 
 import * as S from './styles';
 
 function LoginPage() {
   const idRef = useRef();
   const pwdRef = useRef();
+  const [, setUser] = useRecoilState(userState);
 
   const handleLogin = async () => {
     const id = idRef.current.value;
@@ -21,6 +24,7 @@ function LoginPage() {
       if (res.status === 202) {
         alert('로그인 성공');
         localStorage.setItem('token', res.data.jwt);
+        setUser(res.data.name);
         window.location.href = '/';
       }
     } catch (e) {
