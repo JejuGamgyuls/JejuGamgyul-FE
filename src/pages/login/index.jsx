@@ -54,6 +54,7 @@ function LoginPage() {
             background="#fff"
             border="#fd825b 1px solid"
             color="#fd825b"
+            handleClick={() => navigate('/signUp')}
           />
         </S.ButtonsWrapper>
       </S.Body>
