@@ -1,6 +1,6 @@
 import ThreeDotIcon from '@assets/svg/ThreeDotIcon.svg?react';
 import TrashIcon from '@assets/svg/TrashIcon.svg?react';
-import { navigationBarState } from '@atoms/NavigationBarState';
+import { navigationBarState } from '@atoms/navigationBarState';
 import { CATEGORY, ROUTETYPECOLORS, ROUTETYPETAG } from '@constants/const';
 import { ROUTE } from '@constants/route';
 import useGetDirection from '@hooks/useGetDirection';

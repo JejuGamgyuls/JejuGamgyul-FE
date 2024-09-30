@@ -1,10 +1,6 @@
-import { favBusCntState } from '@atoms/navigationBarState';
-import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-function MyInfoItem() {
-  const favoriteCnt = useRecoilValue(favBusCntState);
-  console.log(favoriteCnt);
+function MyInfoItem({ favoriteCnt }) {
   return (
     <Wrapper>
       <TitleWrapper>

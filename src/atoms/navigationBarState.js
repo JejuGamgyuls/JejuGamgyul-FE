@@ -25,7 +25,3 @@ export const userNameState = atom({
   default: null,
   effects_UNSTABLE: [persistAtom],
 });
-export const favBusCntState = atom({
-  key: 'favBusCntState',
-  default: 0,
-});
