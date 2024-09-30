@@ -17,6 +17,7 @@ const Map = () => {
 
   const handleInfoWindowClick = useCallback(
     (stationName, busStopId) => {
+      setCategory(CATEGORY.BUSSTOPINFO);
       navigate(`/station/${encodeURIComponent(stationName)}?busStopId=${busStopId}`);
     },
     [navigate],
@@ -66,7 +67,6 @@ const Map = () => {
   });
 
   const handleMarkerClick = (index) => {
-    setCategory(CATEGORY.BUSSTOPINFO);
     if (selectedStopIndex !== null && selectedStopIndex !== index) {
       infoWindows[selectedStopIndex].close();
     }

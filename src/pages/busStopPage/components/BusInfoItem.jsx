@@ -2,7 +2,7 @@ import BlueBusIcon from '@assets/svg/BlueBusIcon.svg?react';
 import BothArrow from '@assets/svg/BothArrow.svg?react';
 import FavoriteIcon from '@assets/svg/FavoriteIcon.svg?react';
 import FilledStarIcon from '@assets/svg/FilledStarIcon.svg?react';
-import { navigationBarState } from '@atoms/NavigationBarState';
+import { navigationBarState } from '@atoms/navigationBarState';
 import { CATEGORY } from '@constants/const';
 import { ROUTE } from '@constants/route';
 import useGetDirection from '@hooks/useGetDirection';
@@ -95,7 +95,6 @@ function BusInfoItem({ arrmsg1, busRouteId, rtNm, exps1, exps2, arrmsg2 }) {
       throw new Error(e);
     }
   };
-
 
   const navigateToBusDetail = (rtNm) => {
     const url = ROUTE.BUSFIND.replace(':busNumber', rtNm);
