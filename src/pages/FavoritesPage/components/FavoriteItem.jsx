@@ -22,6 +22,7 @@ function FavoriteItem({
   busRouteId,
   routeType,
   setIsCancelFavorite,
+  refreshFavoritBusInfo,
 }) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const { direction } = useGetDirection(busRouteId);
@@ -49,6 +50,7 @@ function FavoriteItem({
 
     return () => clearInterval(interval);
   }, []);
+
   useEffect(() => {
     if (isDeleteModalOpen) {
       document.addEventListener('mousedown', handleClickOutside);
@@ -87,6 +89,7 @@ function FavoriteItem({
         alert('즐겨찾기에서 삭제되었습니다.');
         setIsDeleteModalOpen(false);
         setIsCancelFavorite(true);
+        refreshFavoritBusInfo();
       }
     } catch (e) {
       throw new Error(e);
@@ -97,8 +100,8 @@ function FavoriteItem({
       <Wrapper>
         <ItemWrapper>
           {isDeleteModalOpen && (
-            <DeleteModal ref={modalRef}>
-              <ModalText onClick={() => handleCancelFavorite(stId)}>삭제</ModalText>
+            <DeleteModal onClick={() => handleCancelFavorite(stId)} ref={modalRef}>
+              <ModalText>삭제</ModalText>
               <DeleteIcon>
                 <TrashIcon style={{ width: '24px', height: '24px' }} />
               </DeleteIcon>

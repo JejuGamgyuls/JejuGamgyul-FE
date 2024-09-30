@@ -8,7 +8,6 @@ export const getLowArrInfoByStId = async (stId) => {
         stId: stId,
       },
     });
-
     const data = res.data.msgBody.itemList;
     return data;
   } catch (e) {

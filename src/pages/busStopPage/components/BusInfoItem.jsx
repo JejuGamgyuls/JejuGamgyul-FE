@@ -33,7 +33,8 @@ function BusInfoItem({ arrmsg1, busRouteId, rtNm, exps1, exps2, arrmsg2 }) {
     return () => clearInterval(interval);
   }, []);
 
-  const handleAddFavorite = async () => {
+  const handleAddFavorite = async (e) => {
+    e.stopPropagation();
     try {
       const res = await axios.post(
         'http://localhost:8080/favorites/add',
@@ -76,7 +77,8 @@ function BusInfoItem({ arrmsg1, busRouteId, rtNm, exps1, exps2, arrmsg2 }) {
     handleGetFavorites();
   }, []);
 
-  const handleCancelFavorite = async () => {
+  const handleCancelFavorite = async (e) => {
+    e.stopPropagation();
     try {
       const res = await axios.delete('http://localhost:8080/favorites/delete', {
         headers: {
