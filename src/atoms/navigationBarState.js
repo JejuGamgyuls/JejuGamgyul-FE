@@ -20,7 +20,7 @@ export const scrollByDirectionState = atom({
   key: 'scrollByDirectionState',
   default: 'end',
 });
-export const userState = atom({
-  key: 'userState',
+export const userNameState = atom({
+  key: 'userNameState',
   default: null,
 });

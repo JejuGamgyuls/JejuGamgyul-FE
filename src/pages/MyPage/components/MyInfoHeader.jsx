@@ -1,11 +1,17 @@
+import { userNameState } from '@atoms/navigationBarState';
+import { useEffect } from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 function MyInfoHeader() {
+  const user = useRecoilValue(userNameState);
+
+  console.log(user);
   return (
     <Wrapper>
       <UserNameWrapper>
         <UserName>
-          <span style={{ fontWeight: '600' }}>감귤</span>님
+          <span style={{ fontWeight: '600' }}>{user}</span>님
         </UserName>
       </UserNameWrapper>
     </Wrapper>
