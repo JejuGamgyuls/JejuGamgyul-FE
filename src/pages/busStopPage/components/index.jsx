@@ -22,7 +22,13 @@ function BusStopInfo() {
     try {
       setIsLoading(true);
       const busData = await getLowArrInfoByStId(busStopId); // 예시 stId 사용
-      setBusInfoList(busData);
+
+      setBusInfoList(
+        busData.filter(
+          (busData) =>
+            busData.routeType === '2' || busData.routeType === '3' || busData.routeType === '4',
+        ),
+      );
       setBusInfoList((prevList) =>
         [...prevList].sort((a, b) => {
           if (a.arrmsg1 === '운행종료' || a.arrmsg1 === '출발대기') return 1;
