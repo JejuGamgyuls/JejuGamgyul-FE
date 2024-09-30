@@ -23,9 +23,17 @@ function BusStopInfo() {
       setIsLoading(true);
       const busData = await getLowArrInfoByStId(busStopId); // 예시 stId 사용
       setBusInfoList(busData);
+      setBusInfoList((prevList) =>
+        [...prevList].sort((a, b) => {
+          if (a.arrmsg1 === '운행종료' || a.arrmsg1 === '출발대기') return 1;
+          if (b.arrmsg1 === '운행종료' || b.arrmsg1 === '출발대기') return -1;
+          return a.exps1 - b.exps1;
+        }),
+      );
       if (busData.arrmsg1 === '곧 도착') {
         setSoonArrivalBus((prev) => [...prev, busData.busRouteAbrv]);
       }
+
       setIsLoading(false);
     } catch (error) {
       console.error('Error fetching bus info:', error);
