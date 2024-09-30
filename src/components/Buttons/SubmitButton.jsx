@@ -1,15 +1,22 @@
 import styled from 'styled-components';
 
-function SubmitButton({ text, background, border, color, handleClick }) {
+function SubmitButton({ width, height, text, background, border, color, handleClick }) {
   return (
-    <StyledButton onClick={handleClick} $background={background} $border={border} color={color}>
+    <StyledButton
+      onClick={handleClick}
+      $width={width}
+      $height={height}
+      $background={background}
+      $border={border}
+      color={color}
+    >
       {text}
     </StyledButton>
   );
 }
 const StyledButton = styled.button`
-  width: 360px;
-  height: 66px;
+  width: ${({ $width }) => $width || '360px'};
+  height: ${({ $height }) => $height || '66px'};
   border-radius: 5px;
   background: ${({ $background }) => $background || '#fd825b'};
   border: ${({ $border }) => $border || 'none'};

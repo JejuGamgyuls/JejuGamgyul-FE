@@ -1,4 +1,4 @@
-import { userNameState } from '@atoms/navigationBarState';
+import { userIdState, userNameState } from '@atoms/navigationBarState';
 import SubmitButton from '@components/Buttons/SubmitButton';
 import Input from '@components/Input';
 import axios from 'axios';
@@ -12,6 +12,7 @@ function LoginPage() {
   const idRef = useRef();
   const pwdRef = useRef();
   const [, setUser] = useRecoilState(userNameState);
+  const [, setUserId] = useRecoilState(userIdState);
   const navigate = useNavigate();
 
   const handleLogin = async () => {
@@ -27,6 +28,7 @@ function LoginPage() {
         alert('로그인 성공');
         localStorage.setItem('token', res.data.jwt);
         setUser(res.data.name);
+        setUserId(res.data.userId);
         navigate('/');
       }
     } catch (e) {
