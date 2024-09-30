@@ -35,7 +35,6 @@ function BusStopInfo() {
 
     const intervalId = setInterval(() => {
       setReloadTime(new Date());
-      fetchBusInfo();
     }, 5000);
 
     return () => clearInterval(intervalId);
