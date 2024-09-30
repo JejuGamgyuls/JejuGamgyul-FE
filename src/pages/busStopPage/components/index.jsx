@@ -30,9 +30,12 @@ function BusStopInfo() {
           return a.exps1 - b.exps1;
         }),
       );
-      if (busData.arrmsg1 === '곧 도착') {
-        setSoonArrivalBus((prev) => [...prev, busData.busRouteAbrv]);
-      }
+      busData.forEach((busData) => {
+        if (busData.arrmsg1 === '곧 도착') {
+          console.log(busData.rtNm);
+          setSoonArrivalBus((prev) => [...prev, busData.busRouteAbrv]);
+        }
+      });
 
       setIsLoading(false);
     } catch (error) {
