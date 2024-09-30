@@ -1,5 +1,5 @@
 import * as busApi from '@apis/favorite';
-import axios from 'axios';
+import loadingImage from '@assets/png/loading.png';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
@@ -27,6 +27,7 @@ function Favorites() {
         data.map(async ({ busStopId, routeId }) => {
           const busData = await busApi.getLowArrInfoByStId(busStopId);
           const newData = busData.filter((bus) => bus.busRouteId === routeId);
+          // setBusInfoList([]);
           setBusInfoList((prev) => [...prev, ...newData]);
         }),
       );
@@ -36,6 +37,11 @@ function Favorites() {
       throw new Error(e);
     }
   };
+
+  useEffect(() => {
+    console.log(isLoading);
+  }, [isLoading]);
+
   useEffect(() => {
     setFavBusCnt(0);
     refreshFavoritBusInfo();
@@ -47,12 +53,18 @@ function Favorites() {
     return () => clearInterval(intervalId);
   }, []);
 
+  useEffect(() => {
+    console.log('busInfoList', busInfoList);
+  }, [busInfoList]);
+
   return (
     <Wrapper>
-      <Header favBusCnt={favBusCnt} reloadTime={reloadTime} />
+      <Header favBusCnt={busInfoList.length} reloadTime={reloadTime} />
       <BodyWrapper>
         {isLoading ? (
-          <div>로딩중</div>
+          <LoadingWrapper>
+            <Loading />
+          </LoadingWrapper>
         ) : (
           <ItemWrapper>
             {busInfoList.map((busInfo, index) => (
@@ -66,6 +78,35 @@ function Favorites() {
 }
 
 export default Favorites;
+const LoadingWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  position: relative;
+`;
+const Loading = styled.div`
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 48px;
+  height: 48px;
+  background-image: url(${loadingImage});
+  background-size: cover;
+  background-position: center;
+  animation: spin 1s infinite ease-in-out;
+
+  @keyframes spin {
+    0% {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+`;
 const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;

@@ -97,8 +97,8 @@ function FavoriteItem({
       <Wrapper>
         <ItemWrapper>
           {isDeleteModalOpen && (
-            <DeleteModal ref={modalRef}>
-              <ModalText onClick={() => handleCancelFavorite(stId)}>삭제</ModalText>
+            <DeleteModal onClick={() => handleCancelFavorite(stId)} ref={modalRef}>
+              <ModalText>삭제</ModalText>
               <DeleteIcon>
                 <TrashIcon style={{ width: '24px', height: '24px' }} />
               </DeleteIcon>
