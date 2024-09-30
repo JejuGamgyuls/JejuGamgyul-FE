@@ -1,10 +1,11 @@
-import { navigationBarState, scrollByDirectionState } from '@atoms/NavigationBarState';
+import { navigationBarState, scrollByDirectionState } from '@atoms/navigationBarState';
 import { CATEGORY } from '@constants/const';
 import BusDetailInfo from '@pages/busFindpage/components';
 import BusStopFind from '@pages/busStopFindPage/components';
 import BusStopInfo from '@pages/busStopPage/components';
 import Favorites from '@pages/FavoritesPage/components';
 import BusStopsAround from '@pages/mainpage/components';
+import MyInfo from '@pages/MyPage/components';
 import { useEffect, useRef, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
@@ -15,7 +16,7 @@ const SIDE_BAR_MAP = {
   [CATEGORY.HOME]: () => <BusStopsAround />,
   [CATEGORY.FAVORITE]: () => <Favorites />,
   [CATEGORY.TIMETABLE]: () => <div>시간표</div>,
-  [CATEGORY.MYINFO]: () => <div>내 정보</div>,
+  [CATEGORY.MYINFO]: () => <MyInfo />,
   [CATEGORY.BUSDETAILINFO]: () => <BusDetailInfo />,
   [CATEGORY.BUSSTOPINFO]: (busStopId) => <BusStopInfo busStopId={busStopId.busStopId} />,
   [CATEGORY.BUSSTOPFIND]: () => <BusStopFind />,
