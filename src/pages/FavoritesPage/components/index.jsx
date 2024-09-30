@@ -9,25 +9,18 @@ import Header from './Header';
 function Favorites() {
   const [isLoading, setIsLoading] = useState(true);
   const [reloadTime, setReloadTime] = useState(new Date());
-  const [favBusCnt, setFavBusCnt] = useState(0);
   const [busInfoList, setBusInfoList] = useState([]);
   const [isCancelFavorite, setIsCancelFavorite] = useState(false);
 
-  useEffect(() => {
-    refreshFavoritBusInfo();
-  }, [isCancelFavorite]);
-
   const refreshFavoritBusInfo = async () => {
     try {
-      setBusInfoList([]);
       setIsLoading(true);
       const data = await busApi.getAllFavorites();
-      setFavBusCnt(data.length);
+      setBusInfoList([]);
       await Promise.all(
         data.map(async ({ busStopId, routeId }) => {
           const busData = await busApi.getLowArrInfoByStId(busStopId);
           const newData = busData.filter((bus) => bus.busRouteId === routeId);
-          // setBusInfoList([]);
           setBusInfoList((prev) => [...prev, ...newData]);
         }),
       );
@@ -38,13 +31,10 @@ function Favorites() {
     }
   };
 
-  useEffect(() => {
-    console.log(isLoading);
-  }, [isLoading]);
 
   useEffect(() => {
-    setFavBusCnt(0);
     refreshFavoritBusInfo();
+    setBusInfoList([]);
 
     const intervalId = setInterval(() => {
       setReloadTime(new Date());
@@ -53,9 +43,7 @@ function Favorites() {
     return () => clearInterval(intervalId);
   }, []);
 
-  useEffect(() => {
-    console.log('busInfoList', busInfoList);
-  }, [busInfoList]);
+  
 
   return (
     <Wrapper>
@@ -68,7 +56,12 @@ function Favorites() {
         ) : (
           <ItemWrapper>
             {busInfoList.map((busInfo, index) => (
-              <FavoriteItem key={index} {...busInfo} setIsCancelFavorite={setIsCancelFavorite} />
+              <FavoriteItem
+                key={index}
+                {...busInfo}
+                setIsCancelFavorite={setIsCancelFavorite}
+                refreshFavoritBusInfo={refreshFavoritBusInfo}
+              />
             ))}
           </ItemWrapper>
         )}

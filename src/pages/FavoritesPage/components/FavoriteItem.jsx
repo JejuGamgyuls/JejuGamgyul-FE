@@ -1,6 +1,6 @@
 import ThreeDotIcon from '@assets/svg/ThreeDotIcon.svg?react';
 import TrashIcon from '@assets/svg/TrashIcon.svg?react';
-import { navigationBarState } from '@atoms/NavigationBarState';
+import { navigationBarState } from '@atoms/navigationBarState';
 import { CATEGORY, ROUTETYPECOLORS, ROUTETYPETAG } from '@constants/const';
 import { ROUTE } from '@constants/route';
 import useGetDirection from '@hooks/useGetDirection';
@@ -22,6 +22,7 @@ function FavoriteItem({
   busRouteId,
   routeType,
   setIsCancelFavorite,
+  refreshFavoritBusInfo,
 }) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const { direction } = useGetDirection(busRouteId);
@@ -49,6 +50,7 @@ function FavoriteItem({
 
     return () => clearInterval(interval);
   }, []);
+
   useEffect(() => {
     if (isDeleteModalOpen) {
       document.addEventListener('mousedown', handleClickOutside);
@@ -87,6 +89,7 @@ function FavoriteItem({
         alert('즐겨찾기에서 삭제되었습니다.');
         setIsDeleteModalOpen(false);
         setIsCancelFavorite(true);
+        refreshFavoritBusInfo();
       }
     } catch (e) {
       throw new Error(e);
