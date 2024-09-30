@@ -1,16 +1,24 @@
 import { Gyul } from '@assets/png';
 import FilledStarIcon from '@assets/svg/filledStarIcon.svg?react';
 import HomeIcon from '@assets/svg/homeIcon.svg?react';
-import TimeIcon from '@assets/svg/timeIcon.svg?react';
 import UserIcon from '@assets/svg/userIcon.svg?react';
 import { navigationBarState } from '@atoms/navigationBarState';
 import { CATEGORY } from '@constants/const';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
 import * as S from './styles';
 function NavigationBar() {
   const [, setCategory] = useRecoilState(navigationBarState);
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token');
+
   const handleCategory = (category) => {
+    if (!token) {
+      alert('로그인이 필요합니다.');
+      navigate('/login');
+      return;
+    }
     setCategory(category);
   };
 
