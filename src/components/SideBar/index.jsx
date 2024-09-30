@@ -15,7 +15,6 @@ import * as S from './styles';
 const SIDE_BAR_MAP = {
   [CATEGORY.HOME]: () => <BusStopsAround />,
   [CATEGORY.FAVORITE]: () => <Favorites />,
-  [CATEGORY.TIMETABLE]: () => <div>시간표</div>,
   [CATEGORY.MYINFO]: () => <MyInfo />,
   [CATEGORY.BUSDETAILINFO]: () => <BusDetailInfo />,
   [CATEGORY.BUSSTOPINFO]: (busStopId) => <BusStopInfo busStopId={busStopId.busStopId} />,

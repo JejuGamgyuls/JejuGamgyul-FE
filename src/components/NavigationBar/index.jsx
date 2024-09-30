@@ -28,10 +28,6 @@ function NavigationBar() {
           <FilledStarIcon width={36} height={36} />
           즐겨찾기
         </S.NavIcon>
-        <S.NavIcon onClick={() => handleCategory(CATEGORY.TIMETABLE)}>
-          <TimeIcon width={36} height={36} />
-          시간표
-        </S.NavIcon>
       </S.NavIconList>
     </S.Wrapper>
   );
