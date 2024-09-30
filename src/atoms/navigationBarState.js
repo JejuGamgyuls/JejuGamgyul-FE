@@ -20,3 +20,13 @@ export const scrollByDirectionState = atom({
   key: 'scrollByDirectionState',
   default: 'end',
 });
+export const userNameState = atom({
+  key: 'userNameState',
+  default: null,
+  effects_UNSTABLE: [persistAtom],
+});
+export const userIdState = atom({
+  key: 'userIdState',
+  default: null,
+  effects_UNSTABLE: [persistAtom],
+});

@@ -11,6 +11,7 @@ function Favorites() {
   const [reloadTime, setReloadTime] = useState(new Date());
   const [busInfoList, setBusInfoList] = useState([]);
   const [isCancelFavorite, setIsCancelFavorite] = useState(false);
+  const [favBusCnt, setFavBusCnt] = useState(0);
 
   const refreshFavoritBusInfo = async () => {
     try {
