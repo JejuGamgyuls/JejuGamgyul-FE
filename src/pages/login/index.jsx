@@ -1,3 +1,4 @@
+import * as authApi from '@apis/auth';
 import { userIdState, userNameState } from '@atoms/navigationBarState';
 import SubmitButton from '@components/Buttons/SubmitButton';
 import Input from '@components/Input';
@@ -19,10 +20,7 @@ function LoginPage() {
     const id = idRef.current.value;
     const pwd = pwdRef.current.value;
     try {
-      const res = await axios.post('http://localhost:8080/login', {
-        userId: id,
-        pwd,
-      });
+      const res = await authApi.loginInUser(id, pwd);
 
       if (res.status === 202) {
         alert('로그인 성공');
@@ -32,6 +30,9 @@ function LoginPage() {
         navigate('/');
       }
     } catch (e) {
+      alert('로그인에 실패했습니다. 아이디와 비밀번호를 확인해 주세요.');
+      idRef.current.value = '';
+      pwdRef.current.value = '';
       throw new Error(e);
     }
   };
