@@ -1,6 +1,8 @@
 import * as busApi from '@apis/favorite';
+import { favBusCntState } from '@atoms/navigationBarState';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import FavoriteItem from './FavoriteItem';
@@ -9,9 +11,9 @@ import Header from './Header';
 function Favorites() {
   const [isLoading, setIsLoading] = useState(true);
   const [reloadTime, setReloadTime] = useState(new Date());
-  const [favBusCnt, setFavBusCnt] = useState(0);
   const [busInfoList, setBusInfoList] = useState([]);
   const [isCancelFavorite, setIsCancelFavorite] = useState(false);
+  const [favBusCnt, setFavBusCnt] = useRecoilState(favBusCntState);
 
   useEffect(() => {
     refreshFavoritBusInfo();
@@ -46,7 +48,7 @@ function Favorites() {
 
     return () => clearInterval(intervalId);
   }, []);
-
+  console.log(favBusCnt);
   return (
     <Wrapper>
       <Header favBusCnt={favBusCnt} reloadTime={reloadTime} />

@@ -23,4 +23,9 @@ export const scrollByDirectionState = atom({
 export const userNameState = atom({
   key: 'userNameState',
   default: null,
+  effects_UNSTABLE: [persistAtom],
+});
+export const favBusCntState = atom({
+  key: 'favBusCntState',
+  default: 0,
 });

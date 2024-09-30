@@ -1,12 +1,10 @@
 import { userNameState } from '@atoms/navigationBarState';
-import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 function MyInfoHeader() {
   const user = useRecoilValue(userNameState);
 
-  console.log(user);
   return (
     <Wrapper>
       <UserNameWrapper>

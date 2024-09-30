@@ -1,12 +1,16 @@
+import { favBusCntState } from '@atoms/navigationBarState';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 function MyInfoItem() {
+  const favoriteCnt = useRecoilValue(favBusCntState);
+  console.log(favoriteCnt);
   return (
     <Wrapper>
       <TitleWrapper>
         <Title>즐겨찾기</Title>
       </TitleWrapper>
-      <FavoriteCnt>7개</FavoriteCnt>
+      <FavoriteCnt>{favoriteCnt}개</FavoriteCnt>
     </Wrapper>
   );
 }
